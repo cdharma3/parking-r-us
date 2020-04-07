@@ -33,6 +33,14 @@ public class UIController {
 		 */
 	}
 
+	public void addMembership(String customerID, Boolean isMonthly) {
+		/* Called when logged in has signed up for a membership
+		 * Can be certain types of membership payments, monthly or yearly
+		 * Set up monthly or annual billing depending on membership type
+		 * update membership flag in customer database for customerID
+		 */
+	}
+
 	public void displayParkingLot(int parkingLotID) {
 		/* Called when parking information is looked up
 		 * prints to main body open parking lot spaces available
