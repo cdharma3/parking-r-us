@@ -3,17 +3,19 @@ package ui;
 import java.util.Date;
 
 import parking.Reservation;
+import user.Customer;
 
 /* Parking R Us User interface Logic 
  * User Management Service
  */
 
 public class UIController {
-	public void addCustomer(String userName, String password, String firstName, String lastName, Date dateOfBirth) {
+	public void addCustomer(String userName, String password, String firstName, String lastName, Date dateOfBirth, Boolean isMember) {
 		/* Called when registration submit button is pushed
 		 * Customer newCustomer = new Customer(firstName, lastName, dateOfBirth);
 		 * customer object is created, then internally added to customer database
 		 */
+		Customer newCustomer = new Customer(firstName, lastName, dateOfBirth, isMember);
 	}
 
 	public void deleteCustomer(String customerID) {
