@@ -15,7 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+
+import com.airplane.Registration;
+
 import java.awt.CardLayout;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -23,6 +27,11 @@ import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
 
 class GUI {
+	
+	public GUI() {
+		initializeGUI();
+	}
+	
 	private static JFrame frame; // main java swing frame
 
 	// header object declarations
@@ -75,7 +84,8 @@ class GUI {
 		btnAbout = new JButton("About");
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				About about = new About();
+				about.NewScreen();
 			}
 		});
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
@@ -104,13 +114,34 @@ class GUI {
 		centerPanel.add(btnNewButton);
 		
 		btnSignUp = new JButton("Sign Up");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SignUp sup = new SignUp();
+				sup.NewScreen();
+			}
+		});
 		centerPanel.add(btnSignUp);
 		// turn on frame
 		frame.setVisible(true);
 	}
-
+	
+	public void NewScreen() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUI window = new GUI();
+					GUI.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+	});
+	}
+	
 	public static void main(String[] args) {
 		// calls initializeGUI to initialize the window and components
 		initializeGUI();
+		
 	}
+
 }

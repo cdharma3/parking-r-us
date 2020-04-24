@@ -3,8 +3,10 @@ package ui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
 
-public class SignUp {
+public class About {
 
 	private JFrame frame;
 
@@ -15,7 +17,7 @@ public class SignUp {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SignUp window = new SignUp();
+					About window = new About();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +29,7 @@ public class SignUp {
 	/**
 	 * Create the application.
 	 */
-	public SignUp() {
+	public About() {
 		initialize();
 	}
 
@@ -38,12 +40,15 @@ public class SignUp {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JLabel lblAbout = new JLabel("About");
+		frame.getContentPane().add(lblAbout, BorderLayout.CENTER);
 	}
 	public void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SignUp window = new SignUp();
+					About window = new About();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
