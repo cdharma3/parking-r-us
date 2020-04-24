@@ -59,7 +59,7 @@ class SignUp {
 
 	public static void initialize() {
 		frame = new JFrame("Parking R Us");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationByPlatform(true);
 		frame.setSize(900, 500);
 		frame.setResizable(false);
