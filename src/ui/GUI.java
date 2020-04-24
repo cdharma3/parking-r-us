@@ -103,6 +103,8 @@ class GUI {
 		btnNewButton = new JButton("Log In");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				LogIn login = new LogIn();
+				login.NewScreen();
 			}
 		});
 		
