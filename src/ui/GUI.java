@@ -73,6 +73,11 @@ class GUI {
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
 		
 		btnAbout = new JButton("About");
+		btnAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
 		
