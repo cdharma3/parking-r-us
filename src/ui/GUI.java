@@ -16,8 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import com.airplane.Registration;
-
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
