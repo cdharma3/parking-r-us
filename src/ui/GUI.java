@@ -23,6 +23,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.BevelBorder;
 
 class GUI {
 	
@@ -65,8 +67,7 @@ class GUI {
 
 		// Create panel for center
 		centerPanel = new JPanel();
-		centerPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
-				BorderFactory.createLoweredBevelBorder()));
+		centerPanel.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null), new BevelBorder(BevelBorder.LOWERED, null, null, null, null)));
 
 
 		// Creating menu panel at bottom

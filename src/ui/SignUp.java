@@ -1,61 +1,63 @@
 package ui;
-
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+
+
+import java.awt.CardLayout;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.JTextField;
 
-public class SignUp {
-
-	private JFrame frame;
-	// header object declarations
-		private static JPanel headerPanel; // panel for header
-		// footer object declarations
-		private static JPanel optionsPanel;
-		
-		private static JButton btnParkingRUs;
-		private static JButton btnAbout;
-		private JLabel lblMadeByGladys;
-		private JPanel centerPanel;
-		
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignUp window = new SignUp();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
+class SignUp {
+	
 	public SignUp() {
 		initialize();
 	}
+	
+	private static JFrame frame; // main java swing frame
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		// Initialize GUI
+	// header object declarations
+	private static JPanel headerPanel; // panel for header
+	// center object declarations
+	// mainly used for showing the 'action', or the sorting process
+	private static JPanel centerPanel; // panel for center
+
+	// footer object declarations
+	private static JPanel optionsPanel;
+
+	private static int[] randData; // stores current array to be sorted
+	private static JButton btnParkingRUs;
+	private static JButton btnAbout;
+	private static JLabel lblMadeByGrace;
+	private static JLabel lblSignUp;
+	private static JLabel lblPassword;
+	private static JLabel lblUsername;
+	private static JButton btnEnter;
+	private static JTextField txtUsername;
+	private static JTextField txtEnterPassword;
+
+	public static void initialize() {
 		frame = new JFrame("Parking R Us");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationByPlatform(true);
@@ -65,6 +67,11 @@ public class SignUp {
 
 		// Create panel for top
 		headerPanel = new JPanel();
+
+		// Create panel for center
+		centerPanel = new JPanel();
+		centerPanel.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null), new BevelBorder(BevelBorder.LOWERED, null, null, null, null)));
+
 
 		// Creating menu panel at bottom
 		optionsPanel = new JPanel();
@@ -86,13 +93,41 @@ public class SignUp {
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
 		
-		lblMadeByGladys = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
-		optionsPanel.add(lblMadeByGladys);
+		lblMadeByGrace = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
+		optionsPanel.add(lblMadeByGrace);
+		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
+		centerPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		centerPanel = new JPanel();
-		frame.getContentPane().add(centerPanel, BorderLayout.CENTER);
+		lblSignUp = new JLabel("Sign Up");
+		lblSignUp.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblSignUp);
 		
+		lblUsername = new JLabel("Username: ");
+		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblUsername);
+		
+		txtUsername = new JTextField();
+		txtUsername.setHorizontalAlignment(SwingConstants.CENTER);
+		txtUsername.setText("Enter Username");
+		centerPanel.add(txtUsername);
+		txtUsername.setColumns(10);
+		
+		lblPassword = new JLabel("Password:");
+		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblPassword);
+		
+		txtEnterPassword = new JTextField();
+		txtEnterPassword.setText("Enter Password");
+		txtEnterPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(txtEnterPassword);
+		txtEnterPassword.setColumns(10);
+		
+		btnEnter = new JButton("Enter");
+		centerPanel.add(btnEnter);
+		// turn on frame
+		frame.setVisible(true);
 	}
+	
 	public void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -104,6 +139,12 @@ public class SignUp {
 				}
 			}
 	});
+	}
+	
+	public static void main(String[] args) {
+		// calls initializeGUI to initialize the window and components
+		initialize();
+		
 	}
 
 }
