@@ -52,9 +52,9 @@ class SignUp {
 	private static JLabel lblMadeByGrace;
 	private static JLabel lblSignUp;
 	private static JLabel lblPassword;
-	private static JLabel lblUsername;
+	private static JLabel lblEmail;
 	private static JButton btnEnter;
-	private static JTextField txtUsername;
+	private static JTextField txtEmail;
 	private static JTextField txtEnterPassword;
 
 	public static void initialize() {
@@ -102,15 +102,15 @@ class SignUp {
 		lblSignUp.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblSignUp);
 		
-		lblUsername = new JLabel("Username: ");
-		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblUsername);
+		lblEmail = new JLabel("Email:");
+		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblEmail);
 		
-		txtUsername = new JTextField();
-		txtUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		txtUsername.setText("Enter Username");
-		centerPanel.add(txtUsername);
-		txtUsername.setColumns(10);
+		txtEmail = new JTextField();
+		txtEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEmail.setText("Enter Email");
+		centerPanel.add(txtEmail);
+		txtEmail.setColumns(10);
 		
 		lblPassword = new JLabel("Password:");
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
