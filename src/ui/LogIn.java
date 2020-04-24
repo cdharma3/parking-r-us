@@ -44,7 +44,7 @@ public class LogIn {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					About window = new About();
+					LogIn window = new LogIn();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
