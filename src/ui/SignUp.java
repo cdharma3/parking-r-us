@@ -26,6 +26,7 @@ public class SignUp {
 		private static JButton btnParkingRUs;
 		private static JButton btnAbout;
 		private JLabel lblMadeByGladys;
+		private JPanel centerPanel;
 		
 	/**
 	 * Launch the application.
@@ -87,6 +88,9 @@ public class SignUp {
 		
 		lblMadeByGladys = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
 		optionsPanel.add(lblMadeByGladys);
+		
+		centerPanel = new JPanel();
+		frame.getContentPane().add(centerPanel, BorderLayout.CENTER);
 		
 	}
 	public void NewScreen() {
