@@ -49,7 +49,7 @@ class SignUp {
 	private static int[] randData; // stores current array to be sorted
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
-	private static JLabel lblMadeByGrace;
+	private static JLabel lblMadeByGladys;
 	private static JLabel lblSignUp;
 	private static JLabel lblPassword;
 	private static JLabel lblEmail;
@@ -93,8 +93,8 @@ class SignUp {
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
 		
-		lblMadeByGrace = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
-		optionsPanel.add(lblMadeByGrace);
+		lblMadeByGladys = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
+		optionsPanel.add(lblMadeByGladys);
 		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
 		centerPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
