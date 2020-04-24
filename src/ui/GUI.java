@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-class Main {
+class GUI {
 	private static JFrame frame; // main java swing frame
 
 	// header object declarations
@@ -31,6 +31,8 @@ class Main {
 	private static JButton sortBtn; // initiate sorting process
 
 	private static int[] randData; // stores current array to be sorted
+	private static JButton btnParkingRUs;
+	private static JButton btnAbout;
 
 	public static void initializeGUI() {
 		// Initialize GUI
@@ -45,7 +47,7 @@ class Main {
 		headerPanel = new JPanel();
 
 		// Create panel for center
-		centerPanel = new JPanel(new GridLayout(2, 2));
+		centerPanel = new JPanel();
 		centerPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
 				BorderFactory.createLoweredBevelBorder()));
 
@@ -69,6 +71,12 @@ class Main {
 
 		// align and add panes to frame
 		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
+		
+		btnParkingRUs = new JButton("Parking R Us");
+		headerPanel.add(btnParkingRUs);
+		
+		btnAbout = new JButton("About");
+		headerPanel.add(btnAbout);
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
 		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
 		// turn on frame
