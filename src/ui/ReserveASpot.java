@@ -34,12 +34,14 @@ public class ReserveASpot {
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;
-	private static JLabel lblSignUp;
-	private static JLabel lblPassword;
-	private static JLabel lblEmail;
 	private static JButton btnEnter;
-	private static JTextField txtEmail;
-	private static JTextField txtEnterPassword;
+	private JButton btnReserveASpot;
+	private JButton btnMonthlySubscription;
+	private JLabel lblReserveASpot;
+	private JLabel lblAddress;
+	private JLabel lblDate;
+	private JLabel lblTime;
+	private JLabel lblLicensePlate;
 	/**
 	 * Launch the application.
 	 */
@@ -87,9 +89,14 @@ public class ReserveASpot {
 
 		// align and add panes to frame
 		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
-		headerPanel.setLayout(new MigLayout("", "[123px][75px]", "[29px][]"));
+		headerPanel.setLayout(new MigLayout("", "[123px][75px][]", "[29px][]"));
 		
 		btnParkingRUs = new JButton("Parking R Us");
+		btnParkingRUs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI gui = new GUI();
+			}
+		});
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
 		
 		btnAbout = new JButton("About");
@@ -100,6 +107,12 @@ public class ReserveASpot {
 			}
 		});
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
+		
+		btnReserveASpot = new JButton("Reserve A Spot");
+		headerPanel.add(btnReserveASpot, "cell 1 1");
+		
+		btnMonthlySubscription = new JButton("Monthly Subscription");
+		headerPanel.add(btnMonthlySubscription, "cell 2 1");
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
 		
 		lblMadeByGladys = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
@@ -107,32 +120,34 @@ public class ReserveASpot {
 		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
 		centerPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		lblSignUp = new JLabel("Sign Up");
-		lblSignUp.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblSignUp);
+		lblReserveASpot = new JLabel("Reserve A Spot");
+		lblReserveASpot.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblReserveASpot);
 		
-		lblEmail = new JLabel("Email:");
-		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblEmail);
+		lblAddress = new JLabel("Address");
+		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblAddress);
 		
-		txtEmail = new JTextField();
-		txtEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEmail.setText("Enter Email");
-		centerPanel.add(txtEmail);
-		txtEmail.setColumns(10);
+		lblDate = new JLabel("Date");
+		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblDate);
 		
-		lblPassword = new JLabel("Password:");
-		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblPassword);
+		lblTime = new JLabel("Time");
+		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblTime);
 		
-		txtEnterPassword = new JTextField();
-		txtEnterPassword.setText("Enter Password");
-		txtEnterPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(txtEnterPassword);
-		txtEnterPassword.setColumns(10);
+		lblLicensePlate = new JLabel("License Plate");
+		lblLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblLicensePlate);
 		
 		btnEnter = new JButton("Enter");
 		centerPanel.add(btnEnter);
+		btnEnter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Home home = new Home();
+				home.NewScreen();
+			}
+		});
 		// turn on frame
 		frame.setVisible(true);
 	}
