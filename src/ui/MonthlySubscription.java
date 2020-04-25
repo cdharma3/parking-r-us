@@ -129,6 +129,12 @@ public class MonthlySubscription {
 		headerPanel.add(btnReserveASpot, "cell 1 1");
 		
 		btnMonthlySubscription = new JButton("Monthly Subscription");
+		btnMonthlySubscription.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MonthlySubscription mSub = new MonthlySubscription();
+				frame.setVisible(false);
+			}
+		});
 		headerPanel.add(btnMonthlySubscription, "cell 2 1");
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
 		
