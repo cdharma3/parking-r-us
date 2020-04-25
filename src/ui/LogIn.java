@@ -81,7 +81,13 @@ class LogIn {
 		headerPanel.setLayout(new MigLayout("", "[123px][75px]", "[29px][]"));
 		
 		btnParkingRUs = new JButton("Parking R Us");
+		
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
+		btnParkingRUs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI gui = new GUI();
+			}
+		});
 		
 		btnAbout = new JButton("About");
 		btnAbout.addActionListener(new ActionListener() {
