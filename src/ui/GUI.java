@@ -103,7 +103,6 @@ class GUI {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LogIn login = new LogIn();
-				login.NewScreen();
 			}
 		});
 		
@@ -118,7 +117,6 @@ class GUI {
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SignUp sup = new SignUp();
-				sup.NewScreen();
 			}
 		});
 		centerPanel.add(btnSignUp);

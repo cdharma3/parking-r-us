@@ -145,11 +145,5 @@ class SignUp {
 			}
 	});
 	}
-	
-	public static void main(String[] args) {
-		// calls initializeGUI to initialize the window and components
-		initialize();
-		
-	}
 
 }
