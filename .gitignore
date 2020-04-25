@@ -1,1 +1,6 @@
+# Eclipse Core
+.project
 /bin/
+
+# JDT-specific
+.classpath
