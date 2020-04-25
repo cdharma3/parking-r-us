@@ -16,6 +16,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class ReserveASpot {
 
@@ -42,6 +44,13 @@ public class ReserveASpot {
 	private JLabel lblDate;
 	private JLabel lblTime;
 	private JLabel lblLicensePlate;
+	private JTextField txtEnterParkingAddress;
+	private JTextField txtEnterDate;
+	private JTextField txtEnterTime;
+	private JRadioButton rdbtnNewRadioButton;
+	private JRadioButton rdbtnTemporary;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JTextField txtEnterLicensePlate;
 	/**
 	 * Launch the application.
 	 */
@@ -128,17 +137,51 @@ public class ReserveASpot {
 		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblAddress);
 		
+		txtEnterParkingAddress = new JTextField();
+		txtEnterParkingAddress.setText("Enter Parking Address");
+		txtEnterParkingAddress.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(txtEnterParkingAddress);
+		txtEnterParkingAddress.setColumns(10);
+		
 		lblDate = new JLabel("Date");
 		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblDate);
+		
+		txtEnterDate = new JTextField();
+		txtEnterDate.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEnterDate.setText("Enter Date in MM/DD/YY");
+		centerPanel.add(txtEnterDate);
+		txtEnterDate.setColumns(10);
 		
 		lblTime = new JLabel("Time");
 		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblTime);
 		
+		txtEnterTime = new JTextField();
+		txtEnterTime.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEnterTime.setText("Enter Time in HH:MM");
+		centerPanel.add(txtEnterTime);
+		txtEnterTime.setColumns(10);
+		
 		lblLicensePlate = new JLabel("License Plate");
 		lblLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblLicensePlate);
+		
+		rdbtnNewRadioButton = new JRadioButton("Permanent");
+		buttonGroup.add(rdbtnNewRadioButton);
+		rdbtnNewRadioButton.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(rdbtnNewRadioButton);
+		
+		rdbtnTemporary = new JRadioButton("Temporary");
+		buttonGroup.add(rdbtnTemporary);
+		rdbtnTemporary.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(rdbtnTemporary);
+		
+		txtEnterLicensePlate = new JTextField();
+		txtEnterLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEnterLicensePlate.setText("Enter License Plate");
+		centerPanel.add(txtEnterLicensePlate);
+		txtEnterLicensePlate.setColumns(10);
 		
 		btnEnter = new JButton("Enter");
 		centerPanel.add(btnEnter);
