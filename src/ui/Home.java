@@ -3,35 +3,20 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 
-
-
-import java.awt.CardLayout;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
-import javax.swing.JTextField;
 
-class LogIn {
+class Home {
 	
-	public LogIn() {
+	public Home() {
 		initialize();
 	}
 	
@@ -46,16 +31,11 @@ class LogIn {
 	// footer object declarations
 	private static JPanel optionsPanel;
 
-	private static int[] randData; // stores current array to be sorted
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;
-	private static JLabel lblLogIn;
-	private static JLabel lblPassword;
-	private static JLabel lblEmail;
-	private static JButton btnEnter;
-	private static JTextField txtEmail;
-	private static JTextField txtEnterPassword;
+	private static JButton btnNewButton;
+	private static JButton btnSubscription;
 
 	public static void initialize() {
 		frame = new JFrame("Parking R Us");
@@ -78,7 +58,7 @@ class LogIn {
 
 		// align and add panes to frame
 		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
-		headerPanel.setLayout(new MigLayout("", "[123px][75px]", "[29px][]"));
+		headerPanel.setLayout(new MigLayout("", "[123px][75px][][]", "[29px][]"));
 		
 		btnParkingRUs = new JButton("Parking R Us");
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
@@ -91,46 +71,22 @@ class LogIn {
 			}
 		});
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
+		
+		btnNewButton = new JButton("Reservation");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		headerPanel.add(btnNewButton, "cell 1 1,aligny center");
+		
+		btnSubscription = new JButton("Subscription");
+		headerPanel.add(btnSubscription, "cell 3 1");
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
 		
 		lblMadeByGladys = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
 		optionsPanel.add(lblMadeByGladys);
 		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
 		centerPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		lblLogIn = new JLabel("Log In");
-		lblLogIn.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblLogIn);
-		
-		lblEmail = new JLabel("Email:");
-		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblEmail);
-		
-		txtEmail = new JTextField();
-		txtEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEmail.setText("Enter Email");
-		centerPanel.add(txtEmail);
-		txtEmail.setColumns(10);
-		
-		lblPassword = new JLabel("Password:");
-		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblPassword);
-		
-		txtEnterPassword = new JTextField();
-		txtEnterPassword.setText("Enter Password");
-		txtEnterPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(txtEnterPassword);
-		txtEnterPassword.setColumns(10);
-		
-		btnEnter = new JButton("Enter");
-		centerPanel.add(btnEnter);
-		btnEnter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Home home = new Home();
-				home.NewScreen();
-				frame.setVisible(false);
-			}
-		});
 		// turn on frame
 		frame.setVisible(true);
 	}
@@ -139,7 +95,7 @@ class LogIn {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LogIn window = new LogIn();
+					Home window = new Home();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

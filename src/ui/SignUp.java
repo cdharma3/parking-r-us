@@ -46,7 +46,6 @@ class SignUp {
 	// footer object declarations
 	private static JPanel optionsPanel;
 
-	private static int[] randData; // stores current array to be sorted
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;
@@ -124,6 +123,12 @@ class SignUp {
 		
 		btnEnter = new JButton("Enter");
 		centerPanel.add(btnEnter);
+		btnEnter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Home home = new Home();
+				home.NewScreen();
+			}
+		});
 		// turn on frame
 		frame.setVisible(true);
 	}
