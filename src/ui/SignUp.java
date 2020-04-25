@@ -131,7 +131,7 @@ class SignUp {
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Home home = new Home();
-				home.NewScreen();
+				frame.setVisible(false);
 			}
 		});
 		// turn on frame
