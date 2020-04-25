@@ -20,14 +20,14 @@ public class InitDatabase {
 			// initialize / reset customer database
 			// if customer table exists, drop
 			if (tables.next()) {
-				st.executeUpdate("DROP TABLE customer;");
+				st.executeUpdate("DROP TABLE customer CASCADE;");
 				System.out.println("Customer table dropped");
 			}
 			
 			String customerTable = 
 				"CREATE TABLE customer "
 				+ "(C_ID varChar(50) NOT NULL, "
-				+ "Password varChar(50), "
+				+ "Password varChar(256), "
 				+ "FirstName varChar(50), "
 				+ "LastName varChar(50), "
 				+ "DateOfBirth DATE, "
