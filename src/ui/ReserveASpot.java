@@ -187,8 +187,7 @@ public class ReserveASpot {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Home home = new Home();
-				home.NewScreen();
+				
 			}
 		});
 		// turn on frame
