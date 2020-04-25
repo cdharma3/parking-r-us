@@ -118,6 +118,12 @@ public class ReserveASpot {
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		
 		btnReserveASpot = new JButton("Reserve A Spot");
+		btnReserveASpot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReserveASpot reserve = new ReserveASpot();
+				frame.setVisible(false);
+			}
+		});
 		headerPanel.add(btnReserveASpot, "cell 1 1");
 		
 		btnMonthlySubscription = new JButton("Monthly Subscription");

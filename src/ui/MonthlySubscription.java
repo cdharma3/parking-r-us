@@ -40,7 +40,6 @@ public class MonthlySubscription {
 	private static JButton btnEnter;
 	private JButton btnReserveASpot;
 	private JButton btnMonthlySubscription;
-	private JLabel lblReserveASpot;
 	private JLabel lblAddress;
 	private JLabel lblTime;
 	private JLabel lblLicensePlate;
@@ -52,6 +51,7 @@ public class MonthlySubscription {
 	private JTextField txtEnterLicensePlate;
 	private JLabel lblMonth;
 	private JTextField txtEnterMonthIn;
+	private JLabel lblMonthlySubscription;
 
 	/**
 	 * Launch the application.
@@ -120,6 +120,12 @@ public class MonthlySubscription {
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		
 		btnReserveASpot = new JButton("Reserve A Spot");
+		btnReserveASpot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReserveASpot reserve = new ReserveASpot();
+				frame.setVisible(false);
+			}
+		});
 		headerPanel.add(btnReserveASpot, "cell 1 1");
 		
 		btnMonthlySubscription = new JButton("Monthly Subscription");
@@ -131,9 +137,9 @@ public class MonthlySubscription {
 		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
 		centerPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		lblReserveASpot = new JLabel("Reserve A Spot");
-		lblReserveASpot.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblReserveASpot);
+		lblMonthlySubscription = new JLabel("Monthly Subscription");
+		lblMonthlySubscription.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblMonthlySubscription);
 		
 		lblAddress = new JLabel("Address");
 		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
