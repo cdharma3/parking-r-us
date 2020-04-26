@@ -16,7 +16,6 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
 public class EditProfile {
@@ -32,7 +31,6 @@ public class EditProfile {
 	// footer object declarations
 	private static JPanel optionsPanel;
 
-	private static int[] randData; // stores current array to be sorted
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;

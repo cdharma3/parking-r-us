@@ -18,7 +18,6 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JList;
 
 public class MonthlySubscription {
 
@@ -33,7 +32,6 @@ public class MonthlySubscription {
 	// footer object declarations
 	private static JPanel optionsPanel;
 
-	private static int[] randData; // stores current array to be sorted
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;

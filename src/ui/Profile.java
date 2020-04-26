@@ -10,13 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
 public class Profile {
@@ -32,13 +30,11 @@ public class Profile {
 	// footer object declarations
 	private static JPanel optionsPanel;
 
-	private static int[] randData; // stores current array to be sorted
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;
 	private JButton btnReserveASpot;
 	private JButton btnMonthlySubscription;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel lblFirstnameLastname;
 	private JLabel lblEmailAddress;
 	private JLabel lblNewLabel;

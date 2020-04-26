@@ -4,16 +4,10 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.DropMode;
 import javax.swing.JTextArea;
 
 public class About {
