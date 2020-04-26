@@ -41,6 +41,7 @@ public class Profile {
 	private JButton btnEditProfile;
 	private JButton btnLogOut;
 	private JButton btnProfile;
+	private JButton btnStatistics;
 	/**
 	 * Launch the application.
 	 */
@@ -106,6 +107,15 @@ public class Profile {
 				about.NewScreen();
 			}
 		});
+		
+		btnStatistics = new JButton("Statistics");
+		btnStatistics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Statistics statistics = new Statistics();
+				frame.setVisible(false);
+			}
+		});
+		headerPanel.add(btnStatistics, "cell 16 0");
 		
 		btnProfile = new JButton("Profile");
 		headerPanel.add(btnProfile, "cell 17 0");
