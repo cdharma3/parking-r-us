@@ -32,16 +32,17 @@ public class MS_Congrats {
 	// footer object declarations
 	private static JPanel optionsPanel;
 
-	private static int[] randData; // stores current array to be sorted
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;
 	private JButton btnReserveASpot;
 	private JButton btnMonthlySubscription;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel lblCongratulations;
 	private JLabel lblNewLabel;
 	private JLabel lblBoughtMS;
+	private JButton btnProfile;
+	private JButton btnStatistics;
+	private Boolean viewStatistics;
 
 	/**
 	 * Launch the application.
@@ -90,7 +91,7 @@ public class MS_Congrats {
 
 		// align and add panes to frame
 		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
-		headerPanel.setLayout(new MigLayout("", "[123px][75px][]", "[29px][]"));
+		headerPanel.setLayout(new MigLayout("", "[123px][75px][][][][][][][][][][][][][][][][]", "[29px][]"));
 		
 		btnParkingRUs = new JButton("Parking R Us");
 		btnParkingRUs.addActionListener(new ActionListener() {
@@ -108,6 +109,27 @@ public class MS_Congrats {
 				about.NewScreen();
 			}
 		});
+		
+		viewStatistics = true;
+		if (viewStatistics) {
+			btnStatistics= new JButton("Statistics");
+				btnStatistics.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Statistics statistics = new Statistics();
+						frame.setVisible(false);
+					}
+				});
+			headerPanel.add(btnStatistics, "cell 16 0");
+		}
+		
+		btnProfile = new JButton("Profile");
+		btnProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Profile profile = new Profile();
+				frame.setVisible(false);
+			}
+		});
+		headerPanel.add(btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		
 		btnReserveASpot = new JButton("Reserve A Spot");

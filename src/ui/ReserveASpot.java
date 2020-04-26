@@ -53,6 +53,7 @@ public class ReserveASpot {
 	private JButton btnProfile;
 	private JButton btnStatistics;
 	private Boolean viewStatistics;
+	private String address;
 	/**
 	 * Launch the application.
 	 */
