@@ -41,7 +41,7 @@ public class MS_Congrats {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel lblCongratulations;
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
+	private JLabel lblBoughtMS;
 
 	/**
 	 * Launch the application.
@@ -138,9 +138,9 @@ public class MS_Congrats {
 		lblCongratulations.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblCongratulations);
 		
-		lblNewLabel_1 = new JLabel("You bought the monthly subscription!");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblNewLabel_1);
+		lblBoughtMS = new JLabel("You bought the monthly subscription!");
+		lblBoughtMS.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblBoughtMS);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setEnabled(false);
