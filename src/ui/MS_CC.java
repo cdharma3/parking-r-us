@@ -18,10 +18,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
 
-public class MonthlySubscription {
+public class MS_CC {
 
 	private JFrame frame;
 
@@ -34,22 +32,22 @@ public class MonthlySubscription {
 	// footer object declarations
 	private static JPanel optionsPanel;
 
+	private static int[] randData; // stores current array to be sorted
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;
+	private static JButton btnEnter;
 	private JButton btnReserveASpot;
 	private JButton btnMonthlySubscription;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JLabel lblCreditCardNumber;
+	private JTextField txtEnterCreditCard;
+	private JLabel lblExpirationDate;
+	private JTextField txtEnterMmyy;
+	private JLabel lblSecurityCode;
+	private JTextField txtEnterCvncvv;
+	private JLabel lblPricespriceVaries;
 	private JLabel lblMonthlySubscription;
-	private JButton btnProfile;
-
-	private JButton btnYes;
-	private JTextArea txtrAboutMonthySubscription;
-
-	private JButton btnStatistics;
-	private Boolean viewStatistics;
-
-
 	/**
 	 * Launch the application.
 	 */
@@ -57,7 +55,7 @@ public class MonthlySubscription {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MonthlySubscription window = new MonthlySubscription();
+					MS_CC window = new MS_CC();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,7 +67,7 @@ public class MonthlySubscription {
 	/**
 	 * Create the application.
 	 */
-	public MonthlySubscription() {
+	public MS_CC() {
 		initialize();
 	}
 
@@ -97,12 +95,12 @@ public class MonthlySubscription {
 
 		// align and add panes to frame
 		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
-		headerPanel.setLayout(new MigLayout("", "[123px][75px][][][][][][][][][][][][][][][][]", "[29px][]"));
+		headerPanel.setLayout(new MigLayout("", "[123px][75px][]", "[29px][]"));
 		
 		btnParkingRUs = new JButton("Parking R Us");
 		btnParkingRUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Home home = new Home();
+				GUI gui = new GUI();
 				frame.setVisible(false);
 			}
 		});
@@ -115,28 +113,6 @@ public class MonthlySubscription {
 				about.NewScreen();
 			}
 		});
-		
-		btnProfile = new JButton("Profile");
-		btnProfile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Profile profile = new Profile();
-				frame.setVisible(false);
-			}
-		});
-		
-		viewStatistics = true;
-		if (viewStatistics) {
-			btnStatistics= new JButton("Statistics");
-				btnStatistics.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						Statistics statistics = new Statistics();
-						frame.setVisible(false);
-					}
-				});
-			headerPanel.add(btnStatistics, "cell 16 0");
-		}
-		
-		headerPanel.add(btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		
 		btnReserveASpot = new JButton("Reserve A Spot");
@@ -167,14 +143,48 @@ public class MonthlySubscription {
 		lblMonthlySubscription.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblMonthlySubscription);
 		
-		txtrAboutMonthySubscription = new JTextArea();
-		txtrAboutMonthySubscription.setEditable(false);
-		txtrAboutMonthySubscription.setLineWrap(true);
-		txtrAboutMonthySubscription.setText("By paying a price of $10 per month you will be able to reserve a spot where ever you want, as long as its not already reserved.  When reserving a spot you will still be sent to the enter credit card details page but do not worry we will not be charging more prices.");
-		centerPanel.add(txtrAboutMonthySubscription);
+		lblPricespriceVaries = new JLabel("Prices: $10/month");
+		lblPricespriceVaries.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblPricespriceVaries);
 		
-		btnYes = new JButton("Yes");
-		centerPanel.add(btnYes);
+		lblCreditCardNumber = new JLabel("Credit Card Number");
+		lblCreditCardNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblCreditCardNumber);
+		
+		txtEnterCreditCard = new JTextField();
+		txtEnterCreditCard.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEnterCreditCard.setText("Enter Credit Card #");
+		centerPanel.add(txtEnterCreditCard);
+		txtEnterCreditCard.setColumns(10);
+		
+		lblExpirationDate = new JLabel("Expiration Date");
+		lblExpirationDate.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblExpirationDate);
+		
+		txtEnterMmyy = new JTextField();
+		txtEnterMmyy.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEnterMmyy.setText("Enter MM/YY");
+		centerPanel.add(txtEnterMmyy);
+		txtEnterMmyy.setColumns(10);
+		
+		lblSecurityCode = new JLabel("Security Code");
+		lblSecurityCode.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblSecurityCode);
+		
+		txtEnterCvncvv = new JTextField();
+		txtEnterCvncvv.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEnterCvncvv.setText("Enter CVN/CVV");
+		centerPanel.add(txtEnterCvncvv);
+		txtEnterCvncvv.setColumns(10);
+		
+		btnEnter = new JButton("Enter");
+		centerPanel.add(btnEnter);
+		btnEnter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RAS_Congrats rasCongrats = new RAS_Congrats();
+				frame.setVisible(false);
+			}
+		});
 		// turn on frame
 		frame.setVisible(true);
 	}
@@ -182,7 +192,7 @@ public class MonthlySubscription {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MonthlySubscription window = new MonthlySubscription();
+					MS_CC window = new MS_CC();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -190,5 +200,4 @@ public class MonthlySubscription {
 			}
 	});
 	}
-
 }
