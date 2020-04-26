@@ -97,7 +97,7 @@ public class MS_CC {
 		// align and add panes to frame
 		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
 		headerPanel.setLayout(new MigLayout("", "[123px][75px][][][][][][][][][][][][][][][][]", "[29px][]"));
-		
+
 		btnParkingRUs = new JButton("Parking R Us");
 		btnParkingRUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -106,7 +106,7 @@ public class MS_CC {
 			}
 		});
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
-		
+
 		btnAbout = new JButton("About");
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,7 +114,7 @@ public class MS_CC {
 				about.NewScreen();
 			}
 		});
-		
+
 		viewStatistics = true;
 		if (viewStatistics) {
 			btnStatistics= new JButton("Statistics");
@@ -126,7 +126,7 @@ public class MS_CC {
 				});
 			headerPanel.add(btnStatistics, "cell 16 0");
 		}
-		
+
 		btnProfile = new JButton("Profile");
 		btnProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,7 +136,7 @@ public class MS_CC {
 		});
 		headerPanel.add(btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
-		
+
 		btnReserveASpot = new JButton("Reserve A Spot");
 		btnReserveASpot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -145,7 +145,7 @@ public class MS_CC {
 			}
 		});
 		headerPanel.add(btnReserveASpot, "cell 1 1");
-		
+
 		btnMonthlySubscription = new JButton("Monthly Subscription");
 		btnMonthlySubscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -155,55 +155,55 @@ public class MS_CC {
 		});
 		headerPanel.add(btnMonthlySubscription, "cell 2 1");
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
-		
+
 		lblMadeByGladys = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
 		optionsPanel.add(lblMadeByGladys);
 		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
 		centerPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		lblMonthlySubscription = new JLabel("Monthly Subscription");
 		lblMonthlySubscription.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblMonthlySubscription);
-		
+
 		lblPricespriceVaries = new JLabel("Prices: $10/month");
 		lblPricespriceVaries.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblPricespriceVaries);
-		
+
 		lblCreditCardNumber = new JLabel("Credit Card Number");
 		lblCreditCardNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblCreditCardNumber);
-		
+
 		txtEnterCreditCard = new JTextField();
 		txtEnterCreditCard.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEnterCreditCard.setText("Enter Credit Card #");
 		centerPanel.add(txtEnterCreditCard);
 		txtEnterCreditCard.setColumns(10);
-		
+
 		lblExpirationDate = new JLabel("Expiration Date");
 		lblExpirationDate.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblExpirationDate);
-		
+
 		txtEnterMmyy = new JTextField();
 		txtEnterMmyy.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEnterMmyy.setText("Enter MM/YY");
 		centerPanel.add(txtEnterMmyy);
 		txtEnterMmyy.setColumns(10);
-		
+
 		lblSecurityCode = new JLabel("Security Code");
 		lblSecurityCode.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblSecurityCode);
-		
+
 		txtEnterCvncvv = new JTextField();
 		txtEnterCvncvv.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEnterCvncvv.setText("Enter CVN/CVV");
 		centerPanel.add(txtEnterCvncvv);
 		txtEnterCvncvv.setColumns(10);
-		
+
 		btnEnter = new JButton("Enter");
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RAS_Congrats rasCongrats = new RAS_Congrats();
+				MS_Congrats rasCongrats = new MS_Congrats();
 				frame.setVisible(false);
 			}
 		});
