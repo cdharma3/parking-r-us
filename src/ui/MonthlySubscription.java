@@ -105,7 +105,7 @@ public class MonthlySubscription {
 		btnParkingRUs = new JButton("Parking R Us");
 		btnParkingRUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUI gui = new GUI();
+				Home home = new Home();
 				frame.setVisible(false);
 			}
 		});
