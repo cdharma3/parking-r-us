@@ -18,6 +18,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class MonthlySubscription {
 
@@ -35,22 +37,13 @@ public class MonthlySubscription {
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;
-	private static JButton btnEnter;
 	private JButton btnReserveASpot;
 	private JButton btnMonthlySubscription;
-	private JLabel lblAddress;
-	private JLabel lblTime;
-	private JLabel lblLicensePlate;
-	private JTextField txtEnterParkingAddress;
-	private JTextField txtEnterTime;
-	private JRadioButton rdbtnNewRadioButton;
-	private JRadioButton rdbtnTemporary;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTextField txtEnterLicensePlate;
-	private JLabel lblMonth;
-	private JTextField txtEnterMonthIn;
 	private JLabel lblMonthlySubscription;
 	private JButton btnProfile;
+	private JButton btnYes;
+	private JTextArea txtrAboutMonthySubscription;
 
 	/**
 	 * Launch the application.
@@ -156,63 +149,14 @@ public class MonthlySubscription {
 		lblMonthlySubscription.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblMonthlySubscription);
 		
-		lblAddress = new JLabel("Address");
-		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblAddress);
+		txtrAboutMonthySubscription = new JTextArea();
+		txtrAboutMonthySubscription.setEditable(false);
+		txtrAboutMonthySubscription.setLineWrap(true);
+		txtrAboutMonthySubscription.setText("By paying a price of $10 per month you will be able to reserve a spot where ever you want, as long as its not already reserved.  When reserving a spot you will still be sent to the enter credit card details page but do not worry we will not be charging more prices.");
+		centerPanel.add(txtrAboutMonthySubscription);
 		
-		txtEnterParkingAddress = new JTextField();
-		txtEnterParkingAddress.setText("Enter Parking Address");
-		txtEnterParkingAddress.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(txtEnterParkingAddress);
-		txtEnterParkingAddress.setColumns(10);
-		
-		lblMonth = new JLabel("Month");
-		lblMonth.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblMonth);
-		
-		txtEnterMonthIn = new JTextField();
-		txtEnterMonthIn.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterMonthIn.setText("Enter Month in MM Format");
-		centerPanel.add(txtEnterMonthIn);
-		txtEnterMonthIn.setColumns(10);
-		
-		lblTime = new JLabel("Time");
-		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblTime);
-		
-		txtEnterTime = new JTextField();
-		txtEnterTime.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterTime.setText("Enter Time in HH:MM");
-		centerPanel.add(txtEnterTime);
-		txtEnterTime.setColumns(10);
-		
-		lblLicensePlate = new JLabel("License Plate");
-		lblLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblLicensePlate);
-		
-		rdbtnNewRadioButton = new JRadioButton("Permanent");
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(rdbtnNewRadioButton);
-		
-		rdbtnTemporary = new JRadioButton("Temporary");
-		buttonGroup.add(rdbtnTemporary);
-		rdbtnTemporary.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(rdbtnTemporary);
-		
-		txtEnterLicensePlate = new JTextField();
-		txtEnterLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterLicensePlate.setText("Enter License Plate");
-		centerPanel.add(txtEnterLicensePlate);
-		txtEnterLicensePlate.setColumns(10);
-		
-		btnEnter = new JButton("Enter");
-		centerPanel.add(btnEnter);
-		btnEnter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+		btnYes = new JButton("Yes");
+		centerPanel.add(btnYes);
 		// turn on frame
 		frame.setVisible(true);
 	}
