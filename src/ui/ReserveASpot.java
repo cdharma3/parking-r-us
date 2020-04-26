@@ -104,6 +104,7 @@ public class ReserveASpot {
 		btnParkingRUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI gui = new GUI();
+				frame.setVisible(false);
 			}
 		});
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");

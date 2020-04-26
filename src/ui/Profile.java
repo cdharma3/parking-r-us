@@ -18,9 +18,8 @@ import javax.swing.border.CompoundBorder;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JComboBox;
 
-public class Home {
+public class Profile {
 
 	private JFrame frame;
 
@@ -40,9 +39,11 @@ public class Home {
 	private JButton btnReserveASpot;
 	private JButton btnMonthlySubscription;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JLabel lblWelcome;
+	private JLabel lblFirstnameLastname;
+	private JLabel lblEmailAddress;
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
+	private JButton btnEditProfile;
+	private JButton btnLogOut;
 	/**
 	 * Launch the application.
 	 */
@@ -50,7 +51,7 @@ public class Home {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home window = new Home();
+					Profile window = new Profile();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,7 +63,7 @@ public class Home {
 	/**
 	 * Create the application.
 	 */
-	public Home() {
+	public Profile() {
 		initialize();
 	}
 
@@ -119,15 +120,7 @@ public class Home {
 		headerPanel.add(btnReserveASpot, "cell 1 1");
 		
 		btnMonthlySubscription = new JButton("Monthly Subscription");
-		btnMonthlySubscription.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MonthlySubscription sub = new MonthlySubscription();
-				frame.setVisible(false);
-			}
-		});
-
 		headerPanel.add(btnMonthlySubscription, "cell 2 1");
-		
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
 		
 		lblMadeByGladys = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
@@ -135,17 +128,23 @@ public class Home {
 		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
 		centerPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		lblWelcome = new JLabel("Welcome");
-		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblWelcome);
+		lblFirstnameLastname = new JLabel("FirstName LastName");
+		lblFirstnameLastname.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblFirstnameLastname);
 		
-		lblNewLabel_1 = new JLabel("Your reservations are:");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		centerPanel.add(lblNewLabel_1);
+		btnEditProfile = new JButton("Edit Profile");
+		centerPanel.add(btnEditProfile);
 		
-		lblNewLabel = new JLabel("Your monthly subscriptions are:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEmailAddress = new JLabel("Email Address: ");
+		lblEmailAddress.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblEmailAddress);
+		
+		lblNewLabel = new JLabel("License Plate: ");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblNewLabel);
+		
+		btnLogOut = new JButton("Log Out");
+		centerPanel.add(btnLogOut);
 		// turn on frame
 		frame.setVisible(true);
 	}
@@ -153,13 +152,13 @@ public class Home {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home window = new Home();
+					Profile window = new Profile();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					}
 				}
-			}
-	});
-	}
+		});
+		}
 
-}
+	}
