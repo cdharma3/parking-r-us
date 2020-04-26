@@ -52,6 +52,7 @@ public class ReserveASpot {
 	private JTextField txtEnterLicensePlate;
 	private JButton btnProfile;
 	private JButton btnStatistics;
+	private Boolean viewStatistics;
 	/**
 	 * Launch the application.
 	 */
@@ -126,14 +127,17 @@ public class ReserveASpot {
 			}
 		});
 		
-		btnStatistics = new JButton("Statistics");
-		btnStatistics.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Statistics statistics = new Statistics();
-				frame.setVisible(false);
-			}
-		});
-		headerPanel.add(btnStatistics, "cell 16 0");
+		viewStatistics = true;
+		if (viewStatistics) {
+			btnStatistics= new JButton("Statistics");
+				btnStatistics.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Statistics statistics = new Statistics();
+						frame.setVisible(false);
+					}
+				});
+			headerPanel.add(btnStatistics, "cell 16 0");
+		}
 		headerPanel.add(btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		

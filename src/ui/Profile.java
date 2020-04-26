@@ -42,6 +42,7 @@ public class Profile {
 	private JButton btnLogOut;
 	private JButton btnProfile;
 	private JButton btnStatistics;
+	private Boolean viewStatistics;
 	/**
 	 * Launch the application.
 	 */
@@ -108,14 +109,17 @@ public class Profile {
 			}
 		});
 		
-		btnStatistics = new JButton("Statistics");
-		btnStatistics.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Statistics statistics = new Statistics();
-				frame.setVisible(false);
-			}
-		});
-		headerPanel.add(btnStatistics, "cell 16 0");
+		viewStatistics = true;
+		if (viewStatistics) {
+			btnStatistics= new JButton("Statistics");
+				btnStatistics.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Statistics statistics = new Statistics();
+						frame.setVisible(false);
+					}
+				});
+			headerPanel.add(btnStatistics, "cell 16 0");
+		}
 		
 		btnProfile = new JButton("Profile");
 		headerPanel.add(btnProfile, "cell 17 0");
