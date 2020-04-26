@@ -43,6 +43,7 @@ public class Home {
 	private JLabel lblWelcome;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
+	private JButton btnProfile;
 	/**
 	 * Launch the application.
 	 */
@@ -90,7 +91,7 @@ public class Home {
 
 		// align and add panes to frame
 		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
-		headerPanel.setLayout(new MigLayout("", "[123px][75px][]", "[29px][]"));
+		headerPanel.setLayout(new MigLayout("", "[123px][75px][][][][][][][][][][][][][][][][]", "[29px][]"));
 		
 		btnParkingRUs = new JButton("Parking R Us");
 		btnParkingRUs.addActionListener(new ActionListener() {
@@ -107,6 +108,15 @@ public class Home {
 				about.NewScreen();
 			}
 		});
+		
+		btnProfile = new JButton("Profile");
+		btnProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Profile profile = new Profile();
+				frame.setVisible(false);
+			}
+		});
+		headerPanel.add(btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		
 		btnReserveASpot = new JButton("Reserve A Spot");
