@@ -47,6 +47,9 @@ public class RAS_Congrats {
 	private JTextField txtTime;
 	private JTextField txtDate;
 	private JLabel lblNewLabel;
+	private JButton btnProfile;
+	private JButton btnStatistics;
+	private Boolean viewStatistics;
 
 	/**
 	 * Launch the application.
@@ -95,7 +98,7 @@ public class RAS_Congrats {
 
 		// align and add panes to frame
 		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
-		headerPanel.setLayout(new MigLayout("", "[123px][75px][]", "[29px][]"));
+		headerPanel.setLayout(new MigLayout("", "[123px][75px][][][][][][][][][][][][][][][][]", "[29px][]"));
 		
 		btnParkingRUs = new JButton("Parking R Us");
 		btnParkingRUs.addActionListener(new ActionListener() {
@@ -113,6 +116,27 @@ public class RAS_Congrats {
 				about.NewScreen();
 			}
 		});
+		
+		viewStatistics = true;
+		if (viewStatistics) {
+			btnStatistics= new JButton("Statistics");
+				btnStatistics.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Statistics statistics = new Statistics();
+						frame.setVisible(false);
+					}
+				});
+			headerPanel.add(btnStatistics, "cell 16 0");
+		}
+		
+		btnProfile = new JButton("Profile");
+		btnProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Profile profile = new Profile();
+				frame.setVisible(false);
+			}
+		});
+		headerPanel.add(btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		
 		btnReserveASpot = new JButton("Reserve A Spot");

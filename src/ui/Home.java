@@ -41,6 +41,8 @@ public class Home {
 	private JButton btnProfile;
 	private JButton btnStatistics;
 	private Boolean viewStatistics;
+	private Boolean isMember;
+	private String reservations;
 	/**
 	 * Launch the application.
 	 */
@@ -152,13 +154,17 @@ public class Home {
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblWelcome);
 		
-		lblNewLabel_1 = new JLabel("Your reservations are:");
+		reservations = "";
+		lblNewLabel_1 = new JLabel("Your reservations are: " + reservations);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		centerPanel.add(lblNewLabel_1);
 		
-		lblNewLabel = new JLabel("Your monthly subscriptions are:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		centerPanel.add(lblNewLabel);
+		isMember = true;
+		if (isMember) {
+			lblNewLabel = new JLabel("Thank you for being a member!");
+			lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+			centerPanel.add(lblNewLabel);
+		}
 		// turn on frame
 		frame.setVisible(true);
 	}
