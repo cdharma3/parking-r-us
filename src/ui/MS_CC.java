@@ -181,7 +181,7 @@ public class MS_CC {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RAS_Congrats rasCongrats = new RAS_Congrats();
+				MS_Congrats MSCongrats = new MS_Congrats();
 				frame.setVisible(false);
 			}
 		});

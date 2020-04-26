@@ -174,6 +174,12 @@ public class MonthlySubscription {
 		centerPanel.add(txtrAboutMonthySubscription);
 		
 		btnYes = new JButton("Yes");
+		btnYes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MS_CC rasCC = new MS_CC();
+				frame.setVisible(false);
+			}
+		});
 		centerPanel.add(btnYes);
 		// turn on frame
 		frame.setVisible(true);
