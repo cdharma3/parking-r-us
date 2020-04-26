@@ -16,10 +16,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-public class ReserveASpot {
+public class Statistics {
 
 	private JFrame frame;
 
@@ -35,24 +34,16 @@ public class ReserveASpot {
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;
-	private static JButton btnEnter;
 	private JButton btnReserveASpot;
 	private JButton btnMonthlySubscription;
-	private JLabel lblReserveASpot;
-	private JLabel lblAddress;
-	private JLabel lblDate;
-	private JLabel lblTime;
-	private JLabel lblLicensePlate;
-	private JTextField txtEnterParkingAddress;
-	private JTextField txtEnterDate;
-	private JTextField txtEnterTime;
-	private JRadioButton rdbtnNewRadioButton;
-	private JRadioButton rdbtnTemporary;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTextField txtEnterLicensePlate;
 	private JButton btnProfile;
 	private JButton btnStatistics;
-	private Boolean viewStatistics;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblNewLabel_4;
 	/**
 	 * Launch the application.
 	 */
@@ -60,7 +51,7 @@ public class ReserveASpot {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ReserveASpot window = new ReserveASpot();
+					Statistics window = new Statistics();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,7 +63,7 @@ public class ReserveASpot {
 	/**
 	 * Create the application.
 	 */
-	public ReserveASpot() {
+	public Statistics() {
 		initialize();
 	}
 
@@ -127,17 +118,14 @@ public class ReserveASpot {
 			}
 		});
 		
-		viewStatistics = true;
-		if (viewStatistics) {
-			btnStatistics= new JButton("Statistics");
-				btnStatistics.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						Statistics statistics = new Statistics();
-						frame.setVisible(false);
-					}
-				});
-			headerPanel.add(btnStatistics, "cell 16 0");
-		}
+		btnStatistics = new JButton("Statistics");
+		btnStatistics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Statistics statistics = new Statistics();
+				frame.setVisible(false);
+			}
+		});
+		headerPanel.add(btnStatistics, "cell 16 0");
 		headerPanel.add(btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		
@@ -153,7 +141,7 @@ public class ReserveASpot {
 		btnMonthlySubscription = new JButton("Monthly Subscription");
 		btnMonthlySubscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MonthlySubscription mSub = new MonthlySubscription();
+				MonthlySubscription sub = new MonthlySubscription();
 				frame.setVisible(false);
 			}
 		});
@@ -165,68 +153,25 @@ public class ReserveASpot {
 		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
 		centerPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		lblReserveASpot = new JLabel("Reserve A Spot");
-		lblReserveASpot.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblReserveASpot);
+		String monthly = "";
+		lblNewLabel = new JLabel("Monthly Revenue: " + monthly);
+		centerPanel.add(lblNewLabel);
 		
-		lblAddress = new JLabel("Address");
-		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblAddress);
+		String usage = "";
+		lblNewLabel_1 = new JLabel("Parking Usage: " + usage);
+		centerPanel.add(lblNewLabel_1);
 		
-		txtEnterParkingAddress = new JTextField();
-		txtEnterParkingAddress.setText("Enter Parking Address");
-		txtEnterParkingAddress.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(txtEnterParkingAddress);
-		txtEnterParkingAddress.setColumns(10);
+		String members = "";
+		lblNewLabel_2 = new JLabel("Members %: " + members);
+		centerPanel.add(lblNewLabel_2);
 		
-		lblDate = new JLabel("Date");
-		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblDate);
+		String online = "";
+		lblNewLabel_3 = new JLabel("Online reservation %: " + online);
+		centerPanel.add(lblNewLabel_3);
 		
-		txtEnterDate = new JTextField();
-		txtEnterDate.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterDate.setText("Enter Date in MM/DD/YY");
-		centerPanel.add(txtEnterDate);
-		txtEnterDate.setColumns(10);
-		
-		lblTime = new JLabel("Time");
-		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblTime);
-		
-		txtEnterTime = new JTextField();
-		txtEnterTime.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterTime.setText("Enter Time in HH:MM");
-		centerPanel.add(txtEnterTime);
-		txtEnterTime.setColumns(10);
-		
-		lblLicensePlate = new JLabel("License Plate");
-		lblLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblLicensePlate);
-		
-		rdbtnNewRadioButton = new JRadioButton("Permanent");
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(rdbtnNewRadioButton);
-		
-		rdbtnTemporary = new JRadioButton("Temporary");
-		buttonGroup.add(rdbtnTemporary);
-		rdbtnTemporary.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(rdbtnTemporary);
-		
-		txtEnterLicensePlate = new JTextField();
-		txtEnterLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterLicensePlate.setText("Enter License Plate");
-		centerPanel.add(txtEnterLicensePlate);
-		txtEnterLicensePlate.setColumns(10);
-		
-		btnEnter = new JButton("Enter");
-		centerPanel.add(btnEnter);
-		btnEnter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RAS_CC rasCC = new RAS_CC();
-				frame.setVisible(false);
-			}
-		});
+		String walkin = "";
+		lblNewLabel_4 = new JLabel("Walk-In %: " + walkin);
+		centerPanel.add(lblNewLabel_4);
 		// turn on frame
 		frame.setVisible(true);
 	}
@@ -234,13 +179,13 @@ public class ReserveASpot {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ReserveASpot window = new ReserveASpot();
+					Statistics window = new Statistics();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					}
 				}
-			}
-	});
-	}
+		});
+		}
 
-}
+	}
