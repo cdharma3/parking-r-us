@@ -94,11 +94,6 @@ public class Home {
 		headerPanel.setLayout(new MigLayout("", "[123px][75px][][][][][][][][][][][][][][][][]", "[29px][]"));
 		
 		btnParkingRUs = new JButton("Parking R Us");
-		btnParkingRUs.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI gui = new GUI();
-			}
-		});
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
 		
 		btnAbout = new JButton("About");

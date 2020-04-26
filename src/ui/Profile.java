@@ -97,7 +97,8 @@ public class Profile {
 		btnParkingRUs = new JButton("Parking R Us");
 		btnParkingRUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUI gui = new GUI();
+				Home home = new Home();
+				frame.setVisible(false);
 			}
 		});
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
@@ -124,6 +125,13 @@ public class Profile {
 		headerPanel.add(btnReserveASpot, "cell 1 1");
 		
 		btnMonthlySubscription = new JButton("Monthly Subscription");
+		btnMonthlySubscription = new JButton("Monthly Subscription");
+		btnMonthlySubscription.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MonthlySubscription sub = new MonthlySubscription();
+				frame.setVisible(false);
+			}
+		});
 		headerPanel.add(btnMonthlySubscription, "cell 2 1");
 		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
 		
@@ -137,6 +145,12 @@ public class Profile {
 		centerPanel.add(lblFirstnameLastname);
 		
 		btnEditProfile = new JButton("Edit Profile");
+		btnEditProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EditProfile profile = new EditProfile();
+				frame.setVisible(false);
+			}
+		});
 		centerPanel.add(btnEditProfile);
 		
 		lblEmailAddress = new JLabel("Email Address: ");
@@ -148,6 +162,12 @@ public class Profile {
 		centerPanel.add(lblNewLabel);
 		
 		btnLogOut = new JButton("Log Out");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI gui = new GUI();
+				frame.setVisible(false);
+			}
+		});
 		centerPanel.add(btnLogOut);
 		// turn on frame
 		frame.setVisible(true);
