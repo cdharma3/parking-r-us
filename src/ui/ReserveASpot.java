@@ -219,7 +219,8 @@ public class ReserveASpot {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				RAS_CC rasCC = new RAS_CC();
+				frame.setVisible(false);
 			}
 		});
 		// turn on frame
