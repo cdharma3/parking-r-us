@@ -40,7 +40,7 @@ public class Home {
 	private JLabel lblNewLabel_1;
 	private JButton btnProfile;
 	private JButton btnStatistics;
-	private Boolean viewStastics;
+	private Boolean viewStatistics;
 	/**
 	 * Launch the application.
 	 */
