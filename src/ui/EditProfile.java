@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
@@ -17,7 +18,7 @@ import javax.swing.border.CompoundBorder;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.ButtonGroup;
 
-public class Profile {
+public class EditProfile {
 
 	private JFrame frame;
 
@@ -35,12 +36,15 @@ public class Profile {
 	private static JLabel lblMadeByGladys;
 	private JButton btnReserveASpot;
 	private JButton btnMonthlySubscription;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel lblFirstnameLastname;
 	private JLabel lblEmailAddress;
 	private JLabel lblNewLabel;
-	private JButton btnEditProfile;
 	private JButton btnLogOut;
 	private JButton btnProfile;
+	private JTextField txtEnterName;
+	private JTextField txtEnterEmailAddress;
+	private JTextField txtEnterLicensePlate;
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +52,7 @@ public class Profile {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Profile window = new Profile();
+					EditProfile window = new EditProfile();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +64,7 @@ public class Profile {
 	/**
 	 * Create the application.
 	 */
-	public Profile() {
+	public EditProfile() {
 		initialize();
 	}
 
@@ -108,6 +112,12 @@ public class Profile {
 		});
 		
 		btnProfile = new JButton("Profile");
+		btnProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Profile profile = new Profile();
+				frame.setVisible(false);
+			}
+		});
 		headerPanel.add(btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		
@@ -120,7 +130,6 @@ public class Profile {
 		});
 		headerPanel.add(btnReserveASpot, "cell 1 1");
 		
-		btnMonthlySubscription = new JButton("Monthly Subscription");
 		btnMonthlySubscription = new JButton("Monthly Subscription");
 		btnMonthlySubscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -140,27 +149,33 @@ public class Profile {
 		lblFirstnameLastname.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblFirstnameLastname);
 		
-		btnEditProfile = new JButton("Edit Profile");
-		btnEditProfile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EditProfile profile = new EditProfile();
-				frame.setVisible(false);
-			}
-		});
-		centerPanel.add(btnEditProfile);
+		txtEnterName = new JTextField();
+		txtEnterName.setText("Enter Name");
+		centerPanel.add(txtEnterName);
+		txtEnterName.setColumns(10);
 		
 		lblEmailAddress = new JLabel("Email Address: ");
 		lblEmailAddress.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblEmailAddress);
 		
+		txtEnterEmailAddress = new JTextField();
+		txtEnterEmailAddress.setText("Enter email address");
+		centerPanel.add(txtEnterEmailAddress);
+		txtEnterEmailAddress.setColumns(10);
+		
 		lblNewLabel = new JLabel("License Plate: ");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblNewLabel);
 		
-		btnLogOut = new JButton("Log Out");
+		txtEnterLicensePlate = new JTextField();
+		txtEnterLicensePlate.setText("Enter license plate");
+		centerPanel.add(txtEnterLicensePlate);
+		txtEnterLicensePlate.setColumns(10);
+		
+		btnLogOut = new JButton("Done");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUI gui = new GUI();
+				Profile profile = new Profile();
 				frame.setVisible(false);
 			}
 		});
@@ -172,7 +187,7 @@ public class Profile {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Profile window = new Profile();
+					EditProfile window = new EditProfile();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

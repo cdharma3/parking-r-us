@@ -10,15 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JComboBox;
 
 public class Home {
 
@@ -33,16 +30,15 @@ public class Home {
 	// footer object declarations
 	private static JPanel optionsPanel;
 
-	private static int[] randData; // stores current array to be sorted
 	private static JButton btnParkingRUs;
 	private static JButton btnAbout;
 	private static JLabel lblMadeByGladys;
 	private JButton btnReserveASpot;
 	private JButton btnMonthlySubscription;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel lblWelcome;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
+	private JButton btnProfile;
 	/**
 	 * Launch the application.
 	 */
@@ -90,14 +86,9 @@ public class Home {
 
 		// align and add panes to frame
 		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
-		headerPanel.setLayout(new MigLayout("", "[123px][75px][]", "[29px][]"));
+		headerPanel.setLayout(new MigLayout("", "[123px][75px][][][][][][][][][][][][][][][][]", "[29px][]"));
 		
 		btnParkingRUs = new JButton("Parking R Us");
-		btnParkingRUs.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI gui = new GUI();
-			}
-		});
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
 		
 		btnAbout = new JButton("About");
@@ -107,6 +98,15 @@ public class Home {
 				about.NewScreen();
 			}
 		});
+		
+		btnProfile = new JButton("Profile");
+		btnProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Profile profile = new Profile();
+				frame.setVisible(false);
+			}
+		});
+		headerPanel.add(btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
 		
 		btnReserveASpot = new JButton("Reserve A Spot");
