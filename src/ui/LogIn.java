@@ -42,6 +42,8 @@ class LogIn {
 	private static JButton btnEnter;
 	private static JTextField txtEmail;
 	private static JTextField txtEnterPassword;
+	private static String email;
+	private static String password;
 
 	public static void initialize() {
 		frame = new JFrame("Parking R Us");
@@ -98,7 +100,7 @@ class LogIn {
 		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblEmail);
 		
-		txtEmail = new JTextField();
+		txtEmail = new JTextField(50);
 		txtEmail.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEmail.setText("Enter Email");
 		centerPanel.add(txtEmail);
@@ -108,7 +110,7 @@ class LogIn {
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblPassword);
 		
-		txtEnterPassword = new JTextField();
+		txtEnterPassword = new JTextField(50);
 		txtEnterPassword.setText("Enter Password");
 		txtEnterPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(txtEnterPassword);
@@ -118,6 +120,8 @@ class LogIn {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				email = txtEmail.getText();
+				password = txtEnterPassword.getText();
 				Home home = new Home();
 				frame.setVisible(false);
 			}

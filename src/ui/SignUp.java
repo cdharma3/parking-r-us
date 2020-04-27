@@ -42,6 +42,8 @@ class SignUp {
 	private static JButton btnEnter;
 	private static JTextField txtEmail;
 	private static JTextField txtEnterPassword;
+	private static String email;
+	private static String password;
 
 	public static void initialize() {
 		frame = new JFrame("Parking R Us");
@@ -97,9 +99,8 @@ class SignUp {
 		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblEmail);
 		
-		txtEmail = new JTextField();
+		txtEmail = new JTextField(50);
 		txtEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEmail.setText("Enter Email");
 		centerPanel.add(txtEmail);
 		txtEmail.setColumns(10);
 		
@@ -107,8 +108,7 @@ class SignUp {
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblPassword);
 		
-		txtEnterPassword = new JTextField();
-		txtEnterPassword.setText("Enter Password");
+		txtEnterPassword = new JTextField(50);
 		txtEnterPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(txtEnterPassword);
 		txtEnterPassword.setColumns(10);
@@ -117,8 +117,18 @@ class SignUp {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Home home = new Home();
-				frame.setVisible(false);
+				email = txtEmail.getText();
+				password = txtEnterPassword.getText();
+				if (email.length() < 1 || password.length() < 1) {
+					NullError err = new NullError();
+				}
+				else if (email.length() > 50 || password.length() > 50) {
+					LengthError err = new LengthError();
+				}
+				else {
+					Home home = new Home();
+					frame.setVisible(false);
+				}
 			}
 		});
 		// turn on frame
