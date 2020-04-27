@@ -3,6 +3,9 @@ package ui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
 
 public class NullError {
 
@@ -37,7 +40,12 @@ public class NullError {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		JLabel lblNullError = new JLabel("Please enter a value for all fields.");
+		lblNullError.setHorizontalAlignment(SwingConstants.CENTER);
+		frame.getContentPane().add(lblNullError, BorderLayout.CENTER);
+		frame.setVisible(true);
 	}
 
 }

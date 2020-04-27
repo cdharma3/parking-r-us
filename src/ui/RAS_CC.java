@@ -51,6 +51,9 @@ public class RAS_CC {
 	private JButton btnProfile;
 	private JButton btnStatistics;
 	private Boolean viewStatistics;
+	private String ccn;
+	private String expiration;
+	private String security;
 	/**
 	 * Launch the application.
 	 */
@@ -205,6 +208,9 @@ public class RAS_CC {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ccn = txtEnterCreditCard.getText();
+				expiration = txtEnterMmyy.getText();
+				security = txtEnterCvncvv.getText();
 				RAS_Congrats rasCongrats = new RAS_Congrats();
 				frame.setVisible(false);
 			}

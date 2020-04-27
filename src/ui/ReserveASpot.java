@@ -54,6 +54,10 @@ public class ReserveASpot {
 	private JButton btnStatistics;
 	private Boolean viewStatistics;
 	private String address;
+	private String date;
+	private String startTime;
+	private String endTime;
+	private String licensePlate;
 	/**
 	 * Launch the application.
 	 */
@@ -216,7 +220,7 @@ public class ReserveASpot {
 		
 		txtEnterLicensePlate = new JTextField();
 		txtEnterLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterLicensePlate.setText("Enter License Plate");
+		txtEnterLicensePlate.setText("If temporary, enter License Plate");
 		centerPanel.add(txtEnterLicensePlate);
 		txtEnterLicensePlate.setColumns(10);
 		
@@ -224,6 +228,18 @@ public class ReserveASpot {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				address = txtEnterParkingAddress.getText();
+				date = txtEnterDate.getText();
+				startTime = txtEnterTime.getText();
+				if (rdbtnTemporary.isSelected()) {
+					licensePlate = txtEnterLicensePlate.getText();
+				}
+				else if (rdbtnNewRadioButton.isSelected()) {
+					licensePlate = "";
+				}
+				else {
+					LPError lperror = new LPError();
+				}
 				RAS_CC rasCC = new RAS_CC();
 				frame.setVisible(false);
 			}

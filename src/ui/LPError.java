@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 
-public class LengthError {
+public class LPError {
 
 	private JFrame frame;
 
@@ -18,7 +18,7 @@ public class LengthError {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LengthError window = new LengthError();
+					LPError window = new LPError();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,7 +30,7 @@ public class LengthError {
 	/**
 	 * Create the application.
 	 */
-	public LengthError() {
+	public LPError() {
 		initialize();
 	}
 
@@ -42,9 +42,9 @@ public class LengthError {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JLabel lblPleaseEnterA = new JLabel("<html>Please enter a username/password that is less than 50 characters.</html");
-		lblPleaseEnterA.setHorizontalAlignment(SwingConstants.CENTER);
-		frame.getContentPane().add(lblPleaseEnterA, BorderLayout.CENTER);
+		JLabel lblPleaseSelectLicense = new JLabel("Please select license plate type and enter if temporary.");
+		lblPleaseSelectLicense.setHorizontalAlignment(SwingConstants.CENTER);
+		frame.getContentPane().add(lblPleaseSelectLicense, BorderLayout.CENTER);
 		frame.setVisible(true);
 	}
 

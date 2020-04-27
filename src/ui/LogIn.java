@@ -122,8 +122,16 @@ class LogIn {
 			public void actionPerformed(ActionEvent e) {
 				email = txtEmail.getText();
 				password = txtEnterPassword.getText();
-				Home home = new Home();
-				frame.setVisible(false);
+				if (email.length() < 1 || password.length() < 1) {
+					NullError err = new NullError();
+				}
+				else if (email.length() > 50 || password.length() > 50) {
+					LengthError err = new LengthError();
+				}
+				else {
+					Home home = new Home();
+					frame.setVisible(false);
+				}
 			}
 		});
 		// turn on frame
