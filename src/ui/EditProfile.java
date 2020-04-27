@@ -101,7 +101,7 @@ public class EditProfile {
 		btnParkingRUs = new JButton("Parking R Us");
 		btnParkingRUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Home home = new Home();
+				GUI gui = new GUI();
 				frame.setVisible(false);
 			}
 		});

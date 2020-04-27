@@ -192,7 +192,7 @@ class SignUp {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					Home home = new Home();
+					Home home = new Home(email);
 					frame.setVisible(false);
 				}
 			}

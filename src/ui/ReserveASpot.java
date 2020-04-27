@@ -129,7 +129,7 @@ public class ReserveASpot {
 		btnParkingRUs.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Home home = new Home();
+				GUI gui = new GUI();
 				ReserveASpot.this.frame.setVisible(false);
 			}
 		});

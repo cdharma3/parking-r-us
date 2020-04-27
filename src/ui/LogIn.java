@@ -138,7 +138,7 @@ class LogIn {
 							LogInError lgerror = new LogInError();
 						}
 						else {
-							Home home = new Home();
+							Home home = new Home(email);
 							frame.setVisible(false);
 						}
 					} catch (Exception e1) {
