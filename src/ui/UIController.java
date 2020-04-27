@@ -305,12 +305,12 @@ public class UIController {
 		int placeHolder = 1;
 		ps.setObject(placeHolder++, parkingLotID);
 		ps.setString(placeHolder++, newReservation.getLicensePlate());
-		ps.setLong(placeHolder++, newReservation.getHourlyRate());
+		ps.setFloat(placeHolder++, newReservation.getHourlyRate());
 		ps.setDate(placeHolder++, convertedStartDate);
 		ps.setTime(placeHolder++, convertedStartTime);
 		ps.setDate(placeHolder++, convertedEndDate);
 		ps.setTime(placeHolder++, convertedEndTime);
-		ps.setLong(placeHolder++, newReservation.getNumHours());
+		ps.setFloat(placeHolder++, newReservation.getNumHours());
 		ps.setString(placeHolder++, newReservation.getTotalSum());
 		ps.executeUpdate();
 		System.out.println("Reservation added at parking lot " + parkingLotID +
@@ -328,7 +328,7 @@ public class UIController {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String pattern = "MM/dd/yyyy hh:mm";
+		String pattern = "MM/dd/yyyy HH:mm";
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
 		Customer bill = new Customer("bWatts", "hello123", "Bill", "Watts", format.parse("12/12/1970 05:00"), false);
 		Customer bbongus = new Customer ("bBongus", "purple-goats-midnight-dancing", "Bingus", "Bongus", format.parse("01/01/2001 05:00"), false);
@@ -349,7 +349,7 @@ public class UIController {
 		UIController.deleteParkingLot(UIController.getParkingLot("123 ABC St."));
 		UIController.addParkingLot(ABC_Lots);
 
-		Reservation billReservation = new Reservation("123 ABC St.", "A123456", 15L, format.parse("04/27/2020 12:00"), format.parse("04/27/2020 15:00"));
+		Reservation billReservation = new Reservation("123 ABC St.", "A123456", (float) 15.00, format.parse("04/27/2020 12:00"), format.parse("04/27/2020 15:00"));
 		UIController.addReservation(UIController.getParkingLot("123 ABC St."), billReservation);
 	}
 }

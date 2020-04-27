@@ -7,10 +7,10 @@ import java.util.Locale;
 public class Reservation {
 	private String parkingAddress; // address tied to parking lot, use to calculate p_id
 	private String licensePlate; // license plate to be assigned to space
-	private long hourlyRate; // parking lot hourly rate
+	private float hourlyRate; // parking lot hourly rate
 	private Date startTime; // start time for reservation
 	private Date endTime; // end time for reservation
-	private long numHours; // calculated number of hours for reservation
+	private float numHours; // calculated number of hours for reservation
 	private String totalSum; // total amount of money to reserver a spot
 
 	public Reservation() {
@@ -23,7 +23,7 @@ public class Reservation {
 		this.totalSum = "";
 	}
 
-	public Reservation(String parkingAddress, String licensePlate, long hourlyRate, Date startTime, Date endTime) {
+	public Reservation(String parkingAddress, String licensePlate, float hourlyRate, Date startTime, Date endTime) {
 		this.parkingAddress = parkingAddress;
 		this.licensePlate = licensePlate;
 		this.hourlyRate = hourlyRate;
@@ -48,7 +48,7 @@ public class Reservation {
 		this.licensePlate = licensePlate;
 	}
 
-	public long getHourlyRate() {
+	public float getHourlyRate() {
 		return this.hourlyRate;
 	}
 
@@ -81,7 +81,7 @@ public class Reservation {
 		this.calculateTotalSum();
 	}
 
-	public long getNumHours() {
+	public float getNumHours() {
 		return this.numHours;
 	}
 
@@ -92,8 +92,9 @@ public class Reservation {
 	// updates sum and hours whenever parameters are changed
 	public void calculateTotalSum() {
 		NumberFormat money = NumberFormat.getCurrencyInstance(Locale.US);
-		long difference = this.startTime.getTime() - this.endTime.getTime();
+		long difference = this.endTime.getTime() - this.startTime.getTime();
 		long diffHours = difference / (60 * 60 * 1000);
+		System.out.println(diffHours);
 		this.numHours = diffHours;
 		this.totalSum = money.format(this.numHours * this.hourlyRate);
 	}
