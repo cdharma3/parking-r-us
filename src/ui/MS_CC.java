@@ -223,32 +223,37 @@ public class MS_CC {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				isValid = true;
-				try {
-					Double intccn = Double.parseDouble(ccn);
-				} catch (NumberFormatException nfe) {
-					isValid = false;
+				ccn = txtEnterCreditCard.getText();
+				expiration = txtEnterMmyy.getText();
+				security = txtEnterCvncvv.getText();
+				if (ccn.equals("Enter Credit Card #") || expiration.equals("Enter MM/YY") || security.equals("Enter CVN/CVV")) {
 					NullError nerror = new NullError();
 				}
-				try {
-					int intsec = Integer.parseInt(security);
-				} catch (NumberFormatException nfe) {
-					isValid = false;
+				else if (ccn.equals("") || expiration.equals("") || security.equals("")) {
 					NullError nerror = new NullError();
 				}
-				if (isValid) {
-					email = txtEmail.getText();
+				else if (ccn.length() != 16 && security.length() != 3 && expiration.length() != 5) {
+					NullError nerror = new NullError();
+				}
+				else {
+					isValid = true;
 					try {
-						uic.addMembership(email,true);
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						Double intccn = Double.parseDouble(ccn);
+					} catch (NumberFormatException nfe) {
+						isValid = false;
+						NullError nerror = new NullError();
 					}
-					RAS_Congrats rasCongrats = new RAS_Congrats();
-					frame.setVisible(false);
+					try {
+						int intsec = Integer.parseInt(security);
+					} catch (NumberFormatException nfe) {
+						isValid = false;
+						NullError nerror = new NullError();
+					}
+					if (isValid) {
+						RAS_Congrats rasCongrats = new RAS_Congrats();
+						frame.setVisible(false);
+					}
 				}
-				
 			}
 		});
 		// turn on frame
