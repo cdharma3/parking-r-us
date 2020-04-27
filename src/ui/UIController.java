@@ -10,11 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.UUID;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import parking.ParkingLot;
 import parking.Reservation;
 import user.Customer;
 
@@ -137,10 +139,11 @@ public class UIController {
 						+ "(C_ID, LicensePlate, Model, Make)"
 						+ "VALUES(?, ?, ?, ?);";
 		PreparedStatement ps = parkingDatabase.prepareStatement(vehicleInfo);
-		ps.setString(1, customerID);
-		ps.setString(2, licensePlate);
-		ps.setString(3, model);
-		ps.setString(4, make);
+		int placeholder = 1;
+		ps.setString(placeholder++, customerID);
+		ps.setString(placeholder++, licensePlate);
+		ps.setString(placeholder++, model);
+		ps.setString(placeholder++, make);
 		ps.executeUpdate();
 		System.out.println("Vehicle with license plate " + licensePlate + " added under user " + customerID);
 	}
@@ -204,6 +207,66 @@ public class UIController {
 
 	}
 
+	/**
+	 * Adds new parking lot and generates unique id
+	 * @param newParkingLot
+	 * @throws SQLException
+	 */
+	public static void addParkingLot(ParkingLot newParkingLot) throws SQLException {
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		String parkingLotInfo =
+				"INSERT INTO parkinglot "
+						+ "(Address, ReservedSpots, OpenSpots, MemberSpots) "
+						+ "VALUES (?, ?, ?, ?);";
+		PreparedStatement ps = parkingDatabase.prepareStatement(parkingLotInfo);
+		int placeholder = 1;
+		ps.setString(placeholder++, newParkingLot.getAddress());
+		ps.setInt(placeholder++, newParkingLot.getReservedSpots());
+		ps.setInt(placeholder++, newParkingLot.getOpenSpots());
+		ps.setInt(placeholder++, newParkingLot.getMemberSpots());
+		ps.executeUpdate();
+		System.out.println("New parking lot added at address " + newParkingLot.getAddress());
+	}
+
+	/**
+	 * deletes parking lot based on P_ID
+	 * @param P_ID
+	 * @throws SQLException
+	 */
+	public static void deleteParkingLot(UUID P_ID) throws SQLException {
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		String deleteParkingLotInfo =
+				"DELETE FROM parkinglot "
+						+ "WHERE P_ID = ?;";
+		PreparedStatement ps = parkingDatabase.prepareStatement(deleteParkingLotInfo);
+		ps.setObject(1, P_ID);
+		ps.executeUpdate();
+		System.out.println("Parking lot with P_ID " + P_ID + " deleted from database");
+
+	}
+
+	/**
+	 * looks up parking lot id from address
+	 * @param address
+	 * @return parking lot id in form of string
+	 * @throws SQLException
+	 */
+	public static UUID getParkingLot(String address) throws SQLException {
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		String getParkingLotID =
+				"SELECT P_ID FROM parkinglot "
+						+ "WHERE address = ?;";
+		PreparedStatement ps = parkingDatabase.prepareStatement(getParkingLotID);
+		ps.setString(1, address);
+		ResultSet parkingLotID = ps.executeQuery();
+		if (parkingLotID.next()) {
+			return (UUID)parkingLotID.getObject("P_ID");
+		} else {
+			System.out.println("No parking lot with that address found!");
+			return null;
+		}
+	}
+
 	/** Called when parking information is looked up
 	 * prints to main body open parking lot spaces available
 	 */
@@ -216,31 +279,77 @@ public class UIController {
 	 * prints timeslots with available parking spaces
 	 * prints parking lot costs
 	 */
-	public static void displayParkingLot(int parkingLotID) {
+	public static void displayParkingLot(String parkingLotID) {
 
 	}
 
-	/** retrieves reservation from database using unique id
-	 * then passes information to UI
+	/** Adds reservation to reservation database
+	 * @throws SQLException
+	 *
+	 */
+	public static void addReservation(UUID parkingLotID, Reservation newReservation) throws SQLException {
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		String reservationInfo =
+				"INSERT INTO reservation "
+						+ "(P_ID, licensePlate, hourlyRate, startDate,"
+						+ " startTime, endDate, endTime, numHours, totalSum) "
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		// converting start and end time to date
+		java.sql.Date convertedStartDate = new java.sql.Date(newReservation.getStartTime().getTime());
+		java.sql.Time convertedStartTime = new java.sql.Time(newReservation.getStartTime().getTime());
+
+		java.sql.Date convertedEndDate = new java.sql.Date(newReservation.getEndTime().getTime());
+		java.sql.Time convertedEndTime = new java.sql.Time(newReservation.getEndTime().getTime());
+
+		PreparedStatement ps = parkingDatabase.prepareStatement(reservationInfo);
+		int placeHolder = 1;
+		ps.setObject(placeHolder++, parkingLotID);
+		ps.setString(placeHolder++, newReservation.getLicensePlate());
+		ps.setLong(placeHolder++, newReservation.getHourlyRate());
+		ps.setDate(placeHolder++, convertedStartDate);
+		ps.setTime(placeHolder++, convertedStartTime);
+		ps.setDate(placeHolder++, convertedEndDate);
+		ps.setTime(placeHolder++, convertedEndTime);
+		ps.setLong(placeHolder++, newReservation.getNumHours());
+		ps.setString(placeHolder++, newReservation.getTotalSum());
+		ps.executeUpdate();
+		System.out.println("Reservation added at parking lot " + parkingLotID +
+				" with license plate " + newReservation.getLicensePlate());
+
+	}
+
+	/**
+	 *
+	 * @param reservationID
+	 * @return
 	 */
 	public static Reservation showReservation(int reservationID) {
 		return new Reservation(); // placeholder
 	}
 
 	public static void main(String[] args) throws Exception {
-		String pattern = "MM/dd/yyyy";
+		String pattern = "MM/dd/yyyy hh:mm";
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
-		Customer bill = new Customer("bWatts", "hello123", "Bill", "Watts", format.parse("12/12/1970"), false);
-		Customer bbongus = new Customer ("bBongus", "purple-goats-midnight-dancing", "Bingus", "Bongus", format.parse("01/01/2001"), false);
+		Customer bill = new Customer("bWatts", "hello123", "Bill", "Watts", format.parse("12/12/1970 05:00"), false);
+		Customer bbongus = new Customer ("bBongus", "purple-goats-midnight-dancing", "Bingus", "Bongus", format.parse("01/01/2001 05:00"), false);
 
 		UIController.deleteCustomer("bWatts");
 		UIController.deleteCustomer("bBongus");
 
 		UIController.addCustomer(bill);
 		UIController.addCustomer(bbongus);
-		UIController.addVehicle("bWatts", "A123456", "Sorento", "KIA");
+
 		UIController.deleteVehicle("bWatts", "A123456");
+		UIController.addVehicle("bWatts", "A123456", "Sorento", "KIA");
+
 		UIController.addMembership("bWatts", false);
 		System.out.println("Login attempt for bWatts: " + Boolean.toString(login("bBongus", "purple-goats-midnight-dancing")));
+
+		ParkingLot ABC_Lots = new ParkingLot("123 ABC St.", 15, 2, 5);
+		UIController.deleteParkingLot(UIController.getParkingLot("123 ABC St."));
+		UIController.addParkingLot(ABC_Lots);
+
+		Reservation billReservation = new Reservation("123 ABC St.", "A123456", 15L, format.parse("04/27/2020 12:00"), format.parse("04/27/2020 15:00"));
+		UIController.addReservation(UIController.getParkingLot("123 ABC St."), billReservation);
 	}
 }

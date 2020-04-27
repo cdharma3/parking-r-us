@@ -1,7 +1,6 @@
 package parking;
 
 public class ParkingLot {
-	private String p_id;
 	private String address;
 	private int openSpots;
 	private int reservedSpots;
@@ -12,20 +11,11 @@ public class ParkingLot {
 
 	}
 
-	public ParkingLot(String p_id, String address, int openSpots, int reservedSpots, int memberSpots) {
-		this.p_id = p_id;
+	public ParkingLot(String address, int openSpots, int reservedSpots, int memberSpots) {
 		this.address = address;
 		this.reservedSpots = reservedSpots;
 		this.openSpots = openSpots;
 		this.memberSpots = memberSpots;
-	}
-
-	public String getP_id() {
-		return this.p_id;
-	}
-
-	public void setP_id(String p_id) {
-		this.p_id = p_id;
 	}
 
 	public String getAddress() {

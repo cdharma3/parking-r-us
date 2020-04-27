@@ -13,9 +13,12 @@ public class InitDatabase {
 		try {
 			Connection parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
 			System.out.println("Connection established...");
+			Statement st = parkingDatabase.createStatement();
+			st.execute("DROP EXTENSION \"uuid-ossp\" CASCADE;");
+			st.execute("CREATE EXTENSION \"uuid-ossp\";");
+
 			DatabaseMetaData pdbmd = parkingDatabase.getMetaData();
 			ResultSet tables = pdbmd.getTables(null, null, "customer", null);
-			Statement st = parkingDatabase.createStatement();
 
 			// initialize / reset customer database
 			// if customer table exists, drop
@@ -39,7 +42,7 @@ public class InitDatabase {
 
 			tables = pdbmd.getTables(null, null, "vehicle", null);
 			if(tables.next()) {
-				st.executeUpdate("DROP TABLE vehicle;");
+				st.executeUpdate("DROP TABLE vehicle CASCADE;");
 				System.out.println("Vehicle table dropped");
 			}
 
@@ -49,10 +52,29 @@ public class InitDatabase {
 							+ "LicensePlate varChar(50), "
 							+ "Model varChar(50), "
 							+ "Make varChar(50), "
+							+ "PRIMARY KEY (LicensePlate), "
 							+ "FOREIGN KEY (C_ID) REFERENCES customer(c_id));";
 
 			st.executeUpdate(vehicleTable);
 			System.out.println("Vehicle table created");
+
+			tables = pdbmd.getTables(null, null, "parkinglot", null);
+			if(tables.next()) {
+				st.executeUpdate("DROP TABLE parkinglot CASCADE;");
+				System.out.println("Parkinglot table dropped");
+			}
+
+			String parkinglotTable =
+					"CREATE TABLE parkinglot "
+							+ "(P_ID UUID PRIMARY KEY default UUID_GENERATE_V4(), "
+							+ "Address varChar(50), "
+							+ "ReservedSpots INTEGER, "
+							+ "OpenSpots INTEGER, "
+							+ "MemberSpots INTEGER);";
+
+
+			st.executeUpdate(parkinglotTable);
+			System.out.println("Parkinglot table created");
 
 			tables = pdbmd.getTables(null, null, "reservation", null);
 			if(tables.next()) {
@@ -62,8 +84,8 @@ public class InitDatabase {
 
 			String reservationTable =
 					"CREATE TABLE reservation "
-							+ "(R_ID varChar(50) NOT NULL, "
-							+ "P_ID varChar(50) NOT NULL, "
+							+ "(R_ID UUID PRIMARY KEY default UUID_GENERATE_V4(), "
+							+ "P_ID UUID NOT NULL, "
 							+ "licensePlate varChar(50), "
 							+ "hourlyRate NUMERIC(15, 2), "
 							+ "startDate DATE, "
@@ -72,7 +94,6 @@ public class InitDatabase {
 							+ "endTime TIME, "
 							+ "numHours NUMERIC(15, 2), "
 							+ "totalSum varChar(50), "
-							+ "PRIMARY KEY (R_ID), "
 							+ "FOREIGN KEY (P_ID) REFERENCES parkinglot(P_ID), "
 							+ "FOREIGN KEY (licensePlate) REFERENCES vehicle(licensePlate));";
 
