@@ -386,6 +386,7 @@ public class UIController {
 		System.out.println("Login attempt for bWatts: " + Boolean.toString(login("bBongus", "purple-goats-midnight-dancing")));
 
 		ParkingLot ABC_Lots = new ParkingLot("123 ABC St.", 15, 2, 5);
+
 		UIController.deleteParkingLot(UIController.getParkingLot("123 ABC St."));
 		UIController.addParkingLot(ABC_Lots);
 
