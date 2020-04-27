@@ -218,6 +218,8 @@ public class RAS_CC {
 					NullError nerror = new NullError();
 				}
 				else {
+					int intccn = Integer.parseInt(ccn);
+					
 					RAS_Congrats rasCongrats = new RAS_Congrats();
 					frame.setVisible(false);
 				}

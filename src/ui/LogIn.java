@@ -127,11 +127,19 @@ class LogIn {
 				}
 				else if (email.length() > 50 || password.length() > 50) {
 					LengthError err = new LengthError();
-				}
-				else {
-					Home home = new Home();
-					frame.setVisible(false);
-				}
+				} else
+					try {
+						if (!UIController.login(email, password)) {
+							LogInError lgerror = new LogInError();
+						}
+						else {
+							Home home = new Home();
+							frame.setVisible(false);
+						}
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			}
 		});
 		// turn on frame
