@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -115,6 +116,12 @@ public class UIController {
 	 */
 	public static void deleteCustomer(String customerID) throws SQLException {
 		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
+		// delete customer reservations
+		String deleteCustomerReservations = "DELETE FROM reservation WHERE C_ID = ?";
+		PreparedStatement deleteReservationPS = parkingDatabase.prepareStatement(deleteCustomerReservations);
+		deleteReservationPS.setString(1, customerID);
+		deleteReservationPS.executeUpdate();
+
 		// delete vehicles
 		String deleteCustomerVehicles = "DELETE FROM vehicle WHERE C_ID = ?";
 		PreparedStatement deleteVehiclePS = parkingDatabase.prepareStatement(deleteCustomerVehicles);
@@ -251,7 +258,7 @@ public class UIController {
 	/**
 	 * looks up parking lot id from address
 	 * @param address
-	 * @return parking lot id in form of string
+	 * @return parking lot id in form of string, null if no parking lot with that address found
 	 * @throws SQLException
 	 */
 	public static UUID getParkingLot(String address) throws SQLException {
@@ -271,68 +278,97 @@ public class UIController {
 	}
 
 	/** Called when parking information is looked up
-	 * prints to main body open parking lot spaces available
+	 * @throws SQLException
+	 * @returns parking lot object with database information based on parkingLotID
 	 */
-	/* if user is a member then
-	 * 		print open parking lot spaces + member only spaces
-	 * else
-	 * 		only print non-member space availability
-	 *
-	 * prints parking lot location
-	 * prints timeslots with available parking spaces
-	 * prints parking lot costs
-	 */
-	public static void displayParkingLot(String parkingLotID) {
 
+	public static ParkingLot displayParkingLot(String parkingLotID) throws SQLException {
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
+		String getParkingLot =
+				"SELECT * FROM parkinglot "
+						+ "WHERE P_ID = ?;";
+		PreparedStatement ps = parkingDatabase.prepareStatement(getParkingLot);
+		ps.setObject(1, UUID.fromString(parkingLotID));
+		ResultSet rs = ps.executeQuery();
+
+		ParkingLot currentParkingLot = new ParkingLot();
+
+		if (rs.next()) {
+			currentParkingLot.setAddress(rs.getString("address"));
+			currentParkingLot.setReservedSpots(rs.getInt("ReservedSpots"));
+			currentParkingLot.setOpenSpots(rs.getInt("OpenSpots"));
+			currentParkingLot.setMemberSpots(rs.getInt("MemberSpots"));
+			return currentParkingLot;
+		} else {
+			System.out.println("Parking lot not found!");
+			return null;
+		}
 	}
 
 	/** Adds reservation to reservation database
 	 * @throws SQLException
 	 *
 	 */
-	public static void addReservation(UUID parkingLotID, Reservation newReservation) throws SQLException {
+	public static void addReservation(Reservation newReservation) throws SQLException {
 		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String reservationInfo =
 				"INSERT INTO reservation "
-						+ "(P_ID, C_ID, licensePlate, hourlyRate, startDate,"
-						+ " startTime, endDate, endTime, numHours, totalSum) "
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-		// converting start and end time to date
-		java.sql.Date convertedStartDate = new java.sql.Date(newReservation.getStartTime().getTime());
-		java.sql.Time convertedStartTime = new java.sql.Time(newReservation.getStartTime().getTime());
-
-		java.sql.Date convertedEndDate = new java.sql.Date(newReservation.getEndTime().getTime());
-		java.sql.Time convertedEndTime = new java.sql.Time(newReservation.getEndTime().getTime());
+						+ "(P_ID, C_ID, licensePlate, hourlyRate, startTimestamp, endTimestamp,"
+						+ " numHours, totalSum) "
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement ps = parkingDatabase.prepareStatement(reservationInfo);
 		int placeHolder = 1;
-		ps.setObject(placeHolder++, parkingLotID);
+		ps.setObject(placeHolder++, UUID.fromString(newReservation.getP_ID()));
 		ps.setString(placeHolder++, newReservation.getUsername());
 		ps.setString(placeHolder++, newReservation.getLicensePlate());
 		ps.setFloat(placeHolder++, newReservation.getHourlyRate());
-		ps.setDate(placeHolder++, convertedStartDate);
-		ps.setTime(placeHolder++, convertedStartTime);
-		ps.setDate(placeHolder++, convertedEndDate);
-		ps.setTime(placeHolder++, convertedEndTime);
+		ps.setTimestamp(placeHolder++, new java.sql.Timestamp(newReservation.getStartTime().getTime()));
+		ps.setTimestamp(placeHolder++, new java.sql.Timestamp(newReservation.getEndTime().getTime()));
 		ps.setFloat(placeHolder++, newReservation.getNumHours());
 		ps.setString(placeHolder++, newReservation.getTotalSum());
 		ps.executeUpdate();
-		System.out.println("Reservation added at parking lot " + parkingLotID +
+		System.out.println("Reservation added at parking lot " + newReservation.getP_ID() +
 				" with license plate " + newReservation.getLicensePlate());
 
 	}
 
 	/**
-	 *
-	 * @param reservationID
-	 * @return
+	 * Queries database, finds all results with matching username in sql database
+	 * creates a reservation for each subsequent result and adds it to an arraylist
+	 * @param username username of customer to display reservations
+	 * @return ArrayList<Reservation> with reservations that match with the username
+	 * @throws SQLException
 	 */
-	public static Reservation showReservation(int reservationID) {
-		return new Reservation(); // placeholder
+	public static ArrayList<Reservation> showReservation(String username) throws SQLException {
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
+		String getReservations =
+				"SELECT * FROM reservation "
+						+ "WHERE C_ID = ?;";
+		PreparedStatement ps = parkingDatabase.prepareStatement(getReservations);
+		ps.setString(1, username);
+		ResultSet rs = ps.executeQuery();
+		ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
+
+		while(rs.next()) {
+			Reservation currentReservation = new Reservation();
+			currentReservation.setR_ID(rs.getString("R_ID"));
+			currentReservation.setP_ID(rs.getString("P_ID"));
+			currentReservation.setUsername(rs.getString("C_ID"));
+			currentReservation.setLicensePlate(rs.getString("LicensePlate"));
+			currentReservation.setHourlyRate(rs.getFloat("HourlyRate"));
+			currentReservation.setStartTime(new java.util.Date(rs.getDate("startTimestamp").getTime()));
+			currentReservation.setEndTime(new java.util.Date(rs.getDate("endTimestamp").getTime()));
+
+			currentReservation.setParkingAddress(UIController.displayParkingLot(currentReservation.getP_ID()).getAddress());
+			reservationList.add(currentReservation);
+		}
+
+		return reservationList;
 	}
 
 	public static void main(String[] args) throws Exception {
-		String pattern = "MM/dd/yyyy HH:mm";
+		String pattern = "MM/dd/yyyy kk:mm";
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
 		Customer bill = new Customer("bWatts", "hello123", "Bill", "Watts", format.parse("12/12/1970 05:00"), false);
 		Customer bbongus = new Customer ("bBongus", "purple-goats-midnight-dancing", "Bingus", "Bongus", format.parse("01/01/2001 05:00"), false);
@@ -343,8 +379,8 @@ public class UIController {
 		UIController.addCustomer(bill);
 		UIController.addCustomer(bbongus);
 
-		UIController.deleteVehicle("bWatts", "A123456");
 		UIController.addVehicle("bWatts", "A123456", "Sorento", "KIA");
+		UIController.addVehicle("bBongus", "A246810", "Camry", "Toyota");
 
 		UIController.addMembership("bWatts", false);
 		System.out.println("Login attempt for bWatts: " + Boolean.toString(login("bBongus", "purple-goats-midnight-dancing")));
@@ -353,7 +389,16 @@ public class UIController {
 		UIController.deleteParkingLot(UIController.getParkingLot("123 ABC St."));
 		UIController.addParkingLot(ABC_Lots);
 
-		Reservation billReservation = new Reservation("123 ABC St.", "bWatts", "A123456", (float) 15.00, format.parse("04/27/2020 12:00"), format.parse("04/27/2020 15:00"));
-		UIController.addReservation(UIController.getParkingLot("123 ABC St."), billReservation);
+		Reservation billReservation = new Reservation(UIController.getParkingLot("123 ABC St.").toString(), "bWatts", "A123456", (float) 15.00, format.parse("04/27/2020 12:00"), format.parse("04/27/2020 15:00"));
+		Reservation billReservation2 = new Reservation(UIController.getParkingLot("123 ABC St.").toString(), "bWatts", "A123456", (float) 20.00, format.parse("04/28/2020 12:00"), format.parse("04/28/2020 15:00"));
+		Reservation bingusReservation = new Reservation(UIController.getParkingLot("123 ABC St.").toString(), "bBongus", "A246810", (float) 15.00, format.parse("04/27/2020 10:00"), format.parse("04/27/2020 15:30"));
+
+		UIController.addReservation(billReservation);
+		UIController.addReservation(billReservation2);
+		UIController.addReservation(bingusReservation);
+
+		for(Reservation rv: UIController.showReservation("bWatts")) {
+			System.out.println(rv.toString());
+		}
 	}
 }

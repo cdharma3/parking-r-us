@@ -250,7 +250,14 @@ public class MS_CC {
 						NullError nerror = new NullError();
 					}
 					if (isValid) {
-						RAS_Congrats rasCongrats = new RAS_Congrats();
+						email= txtEmail.getText();
+						try {
+							uic.addMembership(email, true);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						MS_Congrats rasCongrats = new MS_Congrats();
 						frame.setVisible(false);
 					}
 				}
