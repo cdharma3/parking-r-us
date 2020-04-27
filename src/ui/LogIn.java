@@ -15,9 +15,13 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 class LogIn {
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public LogIn() {
 		initialize();
 	}
@@ -41,9 +45,9 @@ class LogIn {
 	private static JLabel lblEmail;
 	private static JButton btnEnter;
 	private static JTextField txtEmail;
-	private static JTextField txtEnterPassword;
 	private static String email;
 	private static String password;
+	private static JPasswordField passwordField;
 
 	public static void initialize() {
 		frame = new JFrame("Parking R Us");
@@ -110,18 +114,17 @@ class LogIn {
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblPassword);
 		
-		txtEnterPassword = new JTextField(50);
-		txtEnterPassword.setText("Enter Password");
-		txtEnterPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(txtEnterPassword);
-		txtEnterPassword.setColumns(10);
+		passwordField = new JPasswordField();
+		passwordField.setToolTipText("");
+		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(passwordField);
 		
 		btnEnter = new JButton("Enter");
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				email = txtEmail.getText();
-				password = txtEnterPassword.getText();
+				password = passwordField.getPassword().toString();
 				if (email.length() < 1 || password.length() < 1) {
 					NullError err = new NullError();
 				}
