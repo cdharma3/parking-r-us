@@ -297,7 +297,7 @@ public class ReserveASpot {
 						Reservation newReservation = new Reservation(ReserveASpot.this.address, ReserveASpot.this.email, ReserveASpot.this.licensePlate, 10, startDate, endDate);
 						UIController.addReservation(newReservation);
 					} catch (ParseException pe) {
-
+						
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
