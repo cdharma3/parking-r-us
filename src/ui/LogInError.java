@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 
-public class NullError {
+public class LogInError {
 
 	private JFrame frame;
 
@@ -18,7 +18,7 @@ public class NullError {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NullError window = new NullError();
+					LogInError window = new LogInError();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,7 +30,7 @@ public class NullError {
 	/**
 	 * Create the application.
 	 */
-	public NullError() {
+	public LogInError() {
 		initialize();
 	}
 
@@ -42,9 +42,9 @@ public class NullError {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JLabel lblNullError = new JLabel("Please enter a valid value for all fields.");
-		lblNullError.setHorizontalAlignment(SwingConstants.CENTER);
-		frame.getContentPane().add(lblNullError, BorderLayout.CENTER);
+		JLabel lblUsernameOrPassword = new JLabel("Username or password is invalid.");
+		lblUsernameOrPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		frame.getContentPane().add(lblUsernameOrPassword, BorderLayout.CENTER);
 		frame.setVisible(true);
 	}
 

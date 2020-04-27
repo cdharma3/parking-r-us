@@ -30,6 +30,8 @@ public class UIController {
 	private static final int iterations = 20*1000;
 	private static final int saltLen = 32;
 	private static final int desiredKeyLen = 256;
+	private static final String databaseUsername = "postgres";
+	private static final String databasePassword = "123456";
 
 	/**
 	 * Hashes password with given plaintext password and given salt
@@ -79,7 +81,7 @@ public class UIController {
 	 * @throws SQLException
 	 */
 	public static void addCustomer(Customer newCustomer) throws SQLException {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String customerInfo =
 				"INSERT INTO customer "
 						+ "(C_ID, Password, FirstName, LastName, DateOfBirth, isMember)"
@@ -87,16 +89,17 @@ public class UIController {
 
 		java.sql.Date convertedDateOfBirth = new java.sql.Date(newCustomer.getDateOfBirth().getTime());
 		PreparedStatement ps = parkingDatabase.prepareStatement(customerInfo);
-		ps.setString(1, newCustomer.getUsername());
+		int placeholder = 1;
+		ps.setString(placeholder++, newCustomer.getUsername());
 		try {
-			ps.setString(2, getSaltedHash(newCustomer.getPassword()));
+			ps.setString(placeholder++, getSaltedHash(newCustomer.getPassword()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ps.setString(3, newCustomer.getFirstName());
-		ps.setString(4, newCustomer.getLastName());
-		ps.setDate(5, convertedDateOfBirth);
-		ps.setBoolean(6, newCustomer.getIsMember());
+		ps.setString(placeholder++, newCustomer.getFirstName());
+		ps.setString(placeholder++, newCustomer.getLastName());
+		ps.setDate(placeholder++, convertedDateOfBirth);
+		ps.setBoolean(placeholder++, newCustomer.getIsMember());
 		ps.executeUpdate();
 		System.out.println("Customer " + newCustomer.getUsername() + " inserted into customer database!");
 
@@ -111,7 +114,7 @@ public class UIController {
 	 * @throws SQLException
 	 */
 	public static void deleteCustomer(String customerID) throws SQLException {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		// delete vehicles
 		String deleteCustomerVehicles = "DELETE FROM vehicle WHERE C_ID = ?";
 		PreparedStatement deleteVehiclePS = parkingDatabase.prepareStatement(deleteCustomerVehicles);
@@ -133,7 +136,7 @@ public class UIController {
 	 * @throws SQLException
 	 */
 	public static void addVehicle(String customerID, String licensePlate, String model, String make) throws SQLException {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String vehicleInfo =
 				"INSERT INTO vehicle "
 						+ "(C_ID, LicensePlate, Model, Make)"
@@ -152,7 +155,7 @@ public class UIController {
 	 * @throws SQLException
 	 */
 	public static void deleteVehicle(String customerID, String licensePlate) throws SQLException {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String deleteVehicle =
 				"DELETE FROM vehicle "
 						+ "WHERE C_ID = ? "
@@ -171,7 +174,7 @@ public class UIController {
 	 * @throws SQLException
 	 */
 	public static void addMembership(String customerID, Boolean isMember) throws SQLException {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String addMember =
 				"UPDATE customer "
 						+ "SET isMember = ?"
@@ -194,7 +197,7 @@ public class UIController {
 	 * 		refuse entry with an error message, then return
 	 */
 	public static boolean login(String userName, String password) throws Exception {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String passwordQuery =
 				"SELECT password "
 						+ "FROM customer "
@@ -213,7 +216,7 @@ public class UIController {
 	 * @throws SQLException
 	 */
 	public static void addParkingLot(ParkingLot newParkingLot) throws SQLException {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String parkingLotInfo =
 				"INSERT INTO parkinglot "
 						+ "(Address, ReservedSpots, OpenSpots, MemberSpots) "
@@ -234,7 +237,7 @@ public class UIController {
 	 * @throws SQLException
 	 */
 	public static void deleteParkingLot(UUID P_ID) throws SQLException {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String deleteParkingLotInfo =
 				"DELETE FROM parkinglot "
 						+ "WHERE P_ID = ?;";
@@ -252,7 +255,7 @@ public class UIController {
 	 * @throws SQLException
 	 */
 	public static UUID getParkingLot(String address) throws SQLException {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String getParkingLotID =
 				"SELECT P_ID FROM parkinglot "
 						+ "WHERE address = ?;";
@@ -288,12 +291,12 @@ public class UIController {
 	 *
 	 */
 	public static void addReservation(UUID parkingLotID, Reservation newReservation) throws SQLException {
-		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
+		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", databaseUsername, databasePassword);
 		String reservationInfo =
 				"INSERT INTO reservation "
-						+ "(P_ID, licensePlate, hourlyRate, startDate,"
+						+ "(P_ID, C_ID, licensePlate, hourlyRate, startDate,"
 						+ " startTime, endDate, endTime, numHours, totalSum) "
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		// converting start and end time to date
 		java.sql.Date convertedStartDate = new java.sql.Date(newReservation.getStartTime().getTime());
 		java.sql.Time convertedStartTime = new java.sql.Time(newReservation.getStartTime().getTime());
@@ -304,6 +307,7 @@ public class UIController {
 		PreparedStatement ps = parkingDatabase.prepareStatement(reservationInfo);
 		int placeHolder = 1;
 		ps.setObject(placeHolder++, parkingLotID);
+		ps.setString(placeHolder++, newReservation.getUsername());
 		ps.setString(placeHolder++, newReservation.getLicensePlate());
 		ps.setFloat(placeHolder++, newReservation.getHourlyRate());
 		ps.setDate(placeHolder++, convertedStartDate);
@@ -349,7 +353,7 @@ public class UIController {
 		UIController.deleteParkingLot(UIController.getParkingLot("123 ABC St."));
 		UIController.addParkingLot(ABC_Lots);
 
-		Reservation billReservation = new Reservation("123 ABC St.", "A123456", (float) 15.00, format.parse("04/27/2020 12:00"), format.parse("04/27/2020 15:00"));
+		Reservation billReservation = new Reservation("123 ABC St.", "bWatts", "A123456", (float) 15.00, format.parse("04/27/2020 12:00"), format.parse("04/27/2020 15:00"));
 		UIController.addReservation(UIController.getParkingLot("123 ABC St."), billReservation);
 	}
 }

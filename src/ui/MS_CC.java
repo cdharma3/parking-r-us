@@ -52,6 +52,7 @@ public class MS_CC {
 	private String ccn;
 	private String expiration;
 	private String security;
+	private Boolean isValid;
 	/**
 	 * Launch the application.
 	 */
@@ -206,17 +207,22 @@ public class MS_CC {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ccn = txtEnterCreditCard.getText();
-				expiration = txtEnterMmyy.getText();
-				security = txtEnterCvncvv.getText();
-				if (ccn.equals("Enter Credit Card #") || expiration.equals("Enter MM/YY") || security.equals("Enter CVN/CVV")) {
+
+				isValid = true;
+				try {
+					Double intccn = Double.parseDouble(ccn);
+				} catch (NumberFormatException nfe) {
+					isValid = false;
 					NullError nerror = new NullError();
 				}
-				else if (ccn.equals("") || expiration.equals("") || security.equals("")) {
+				try {
+					int intsec = Integer.parseInt(security);
+				} catch (NumberFormatException nfe) {
+					isValid = false;
 					NullError nerror = new NullError();
 				}
-				else {
-					MS_Congrats msCongrats = new MS_Congrats();
+				if (isValid) {
+					RAS_Congrats rasCongrats = new RAS_Congrats();
 					frame.setVisible(false);
 				}
 			}

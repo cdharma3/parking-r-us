@@ -54,6 +54,7 @@ public class RAS_CC {
 	private String ccn;
 	private String expiration;
 	private String security;
+	private Boolean isValid;
 	/**
 	 * Launch the application.
 	 */
@@ -217,9 +218,27 @@ public class RAS_CC {
 				else if (ccn.equals("") || expiration.equals("") || security.equals("")) {
 					NullError nerror = new NullError();
 				}
+				else if (ccn.length() != 16 && security.length() != 3 && expiration.length() != 5) {
+					NullError nerror = new NullError();
+				}
 				else {
-					RAS_Congrats rasCongrats = new RAS_Congrats();
-					frame.setVisible(false);
+					isValid = true;
+					try {
+						Double intccn = Double.parseDouble(ccn);
+					} catch (NumberFormatException nfe) {
+						isValid = false;
+						NullError nerror = new NullError();
+					}
+					try {
+						int intsec = Integer.parseInt(security);
+					} catch (NumberFormatException nfe) {
+						isValid = false;
+						NullError nerror = new NullError();
+					}
+					if (isValid) {
+						RAS_Congrats rasCongrats = new RAS_Congrats();
+						frame.setVisible(false);
+					}
 				}
 			}
 		});

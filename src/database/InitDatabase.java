@@ -86,6 +86,7 @@ public class InitDatabase {
 					"CREATE TABLE reservation "
 							+ "(R_ID UUID PRIMARY KEY default UUID_GENERATE_V4(), "
 							+ "P_ID UUID NOT NULL, "
+							+ "C_ID varChar(50) NOT NULL, "
 							+ "licensePlate varChar(50), "
 							+ "hourlyRate NUMERIC(15, 2), "
 							+ "startDate DATE, "
