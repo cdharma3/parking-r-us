@@ -125,7 +125,6 @@ class LogIn {
 			public void actionPerformed(ActionEvent e) {
 				email = txtEmail.getText();
 				password = new String(passwordField.getPassword());
-				System.out.println(password);
 				if (email.length() < 1 || password.length() < 1) {
 					NullError err = new NullError();
 				}
