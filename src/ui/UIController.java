@@ -32,7 +32,7 @@ public class UIController {
 	private static final int saltLen = 32;
 	private static final int desiredKeyLen = 256;
 	private static final String databaseUsername = "postgres";
-	private static final String databasePassword = "180138Ga";
+	private static final String databasePassword = "123456";
 
 	/**
 	 * Hashes password with given plaintext password and given salt

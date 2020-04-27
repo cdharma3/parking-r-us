@@ -6,22 +6,23 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-
-import java.util.Date;
-import java.util.UUID;
 import parking.Reservation;
 
 public class ReserveASpot {
@@ -77,6 +78,7 @@ public class ReserveASpot {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					ReserveASpot window = new ReserveASpot();
@@ -92,18 +94,18 @@ public class ReserveASpot {
 	 * Create the application.
 	 */
 	public ReserveASpot() {
-		initialize();
+		this.initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(){
-		frame = new JFrame("Parking R Us");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setLocationByPlatform(true);
-		frame.setSize(900, 500);
-		frame.setResizable(false);
+		this.frame = new JFrame("Parking R Us");
+		this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.frame.setLocationByPlatform(true);
+		this.frame.setSize(900, 500);
+		this.frame.setResizable(false);
 		System.out.println("GUI Initialized!"); // debug
 
 		// Create panel for top
@@ -118,184 +120,199 @@ public class ReserveASpot {
 		optionsPanel = new JPanel();
 
 		// align and add panes to frame
-		frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
+		this.frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
 		headerPanel.setLayout(new MigLayout("", "[123px][75px][][][][][][][][][][][][][][][][]", "[29px][]"));
-		
+
 		btnParkingRUs = new JButton("Parking R Us");
 		btnParkingRUs.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Home home = new Home();
-				frame.setVisible(false);
+				ReserveASpot.this.frame.setVisible(false);
 			}
 		});
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
-		
+
 		btnAbout = new JButton("About");
 		btnAbout.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				About about = new About();
 				about.NewScreen();
 			}
 		});
-		
-		btnProfile = new JButton("Profile");
-		btnProfile.addActionListener(new ActionListener() {
+
+		this.btnProfile = new JButton("Profile");
+		this.btnProfile.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Profile profile = new Profile();
-				frame.setVisible(false);
+				ReserveASpot.this.frame.setVisible(false);
 			}
 		});
-		
-		viewStatistics = true;
-		if (viewStatistics) {
-			btnStatistics= new JButton("Statistics");
-				btnStatistics.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						Statistics statistics = new Statistics();
-						frame.setVisible(false);
-					}
-				});
-			headerPanel.add(btnStatistics, "cell 16 0");
+
+		this.viewStatistics = true;
+		if (this.viewStatistics) {
+			this.btnStatistics= new JButton("Statistics");
+			this.btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Statistics statistics = new Statistics();
+					ReserveASpot.this.frame.setVisible(false);
+				}
+			});
+			headerPanel.add(this.btnStatistics, "cell 16 0");
 		}
-		headerPanel.add(btnProfile, "cell 17 0");
+		headerPanel.add(this.btnProfile, "cell 17 0");
 		headerPanel.add(btnAbout, "cell 0 1,alignx left,aligny top");
-		
-		btnReserveASpot = new JButton("Reserve A Spot");
-		btnReserveASpot.addActionListener(new ActionListener() {
+
+		this.btnReserveASpot = new JButton("Reserve A Spot");
+		this.btnReserveASpot.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				ReserveASpot reserve = new ReserveASpot();
-				frame.setVisible(false);
+				ReserveASpot.this.frame.setVisible(false);
 			}
 		});
-		headerPanel.add(btnReserveASpot, "cell 1 1");
-		
-		btnMonthlySubscription = new JButton("Monthly Subscription");
-		btnMonthlySubscription.addActionListener(new ActionListener() {
+		headerPanel.add(this.btnReserveASpot, "cell 1 1");
+
+		this.btnMonthlySubscription = new JButton("Monthly Subscription");
+		this.btnMonthlySubscription.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				MonthlySubscription mSub = new MonthlySubscription();
-				frame.setVisible(false);
+				ReserveASpot.this.frame.setVisible(false);
 			}
 		});
-		headerPanel.add(btnMonthlySubscription, "cell 2 1");
-		frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
-		
+		headerPanel.add(this.btnMonthlySubscription, "cell 2 1");
+		this.frame.getContentPane().add(BorderLayout.SOUTH, optionsPanel);
+
 		lblMadeByGladys = new JLabel("Made by Grace Arnold, Chris Dharma, and Gladys Toledo-Rodriguez");
 		optionsPanel.add(lblMadeByGladys);
-		frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
+		this.frame.getContentPane().add(BorderLayout.CENTER, centerPanel);
 		centerPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		lblReserveASpot = new JLabel("Reserve A Spot");
-		lblReserveASpot.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblReserveASpot);
-		
-		lblEmail = new JLabel("Email");
-		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblEmail);
-		
-		txtEnterEmail = new JTextField();
-		txtEnterEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterEmail.setText("Enter Email");
-		centerPanel.add(txtEnterEmail);
-		txtEnterEmail.setColumns(10);
-		
-		lblAddress = new JLabel("Address");
-		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblAddress);
-		
-		txtEnterParkingAddress = new JTextField();
-		txtEnterParkingAddress.setText("Enter Parking Address");
-		txtEnterParkingAddress.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(txtEnterParkingAddress);
-		txtEnterParkingAddress.setColumns(10);
-		
-		lblDate = new JLabel("Date");
-		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblDate);
-		
-		txtEnterDate = new JTextField();
-		txtEnterDate.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterDate.setText("Enter Date in MM/DD/YY");
-		centerPanel.add(txtEnterDate);
-		txtEnterDate.setColumns(10);
-		
-		lblTime = new JLabel("Time");
-		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblTime);
-		
-		txtEnterTime = new JTextField();
-		txtEnterTime.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterTime.setText("Enter Start Time in HH:MM");
-		centerPanel.add(txtEnterTime);
-		txtEnterTime.setColumns(10);
-		
-		txtEnterEndTime = new JTextField();
-		txtEnterEndTime.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterEndTime.setText("Enter End Time in HH:MM");
-		centerPanel.add(txtEnterEndTime);
-		txtEnterEndTime.setColumns(10);
-		
-		lblLicensePlate = new JLabel("License Plate");
-		lblLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(lblLicensePlate);
-		
-		rdbtnNewRadioButton = new JRadioButton("Permanent");
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(rdbtnNewRadioButton);
-		
-		rdbtnTemporary = new JRadioButton("Temporary");
-		buttonGroup.add(rdbtnTemporary);
-		rdbtnTemporary.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(rdbtnTemporary);
-		
-		txtEnterLicensePlate = new JTextField();
-		txtEnterLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterLicensePlate.setText("If temporary, enter License Plate");
-		centerPanel.add(txtEnterLicensePlate);
-		txtEnterLicensePlate.setColumns(10);
-		
+
+		this.lblReserveASpot = new JLabel("Reserve A Spot");
+		this.lblReserveASpot.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(this.lblReserveASpot);
+
+		this.lblEmail = new JLabel("Email");
+		this.lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(this.lblEmail);
+
+		this.txtEnterEmail = new JTextField();
+		this.txtEnterEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		this.txtEnterEmail.setText("Enter Email");
+		centerPanel.add(this.txtEnterEmail);
+		this.txtEnterEmail.setColumns(10);
+
+		this.lblAddress = new JLabel("Address");
+		this.lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(this.lblAddress);
+
+		this.txtEnterParkingAddress = new JTextField();
+		this.txtEnterParkingAddress.setText("Enter Parking Address");
+		this.txtEnterParkingAddress.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(this.txtEnterParkingAddress);
+		this.txtEnterParkingAddress.setColumns(10);
+
+		this.lblDate = new JLabel("Date");
+		this.lblDate.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(this.lblDate);
+
+		this.txtEnterDate = new JTextField();
+		this.txtEnterDate.setHorizontalAlignment(SwingConstants.CENTER);
+		this.txtEnterDate.setText("Enter Date in MM/DD/YY");
+		centerPanel.add(this.txtEnterDate);
+		this.txtEnterDate.setColumns(10);
+
+		this.lblTime = new JLabel("Time");
+		this.lblTime.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(this.lblTime);
+
+		this.txtEnterTime = new JTextField();
+		this.txtEnterTime.setHorizontalAlignment(SwingConstants.CENTER);
+		this.txtEnterTime.setText("Enter Start Time in HH:MM");
+		centerPanel.add(this.txtEnterTime);
+		this.txtEnterTime.setColumns(10);
+
+		this.txtEnterEndTime = new JTextField();
+		this.txtEnterEndTime.setHorizontalAlignment(SwingConstants.CENTER);
+		this.txtEnterEndTime.setText("Enter End Time in HH:MM");
+		centerPanel.add(this.txtEnterEndTime);
+		this.txtEnterEndTime.setColumns(10);
+
+		this.lblLicensePlate = new JLabel("License Plate");
+		this.lblLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(this.lblLicensePlate);
+
+		this.rdbtnNewRadioButton = new JRadioButton("Permanent");
+		this.buttonGroup.add(this.rdbtnNewRadioButton);
+		this.rdbtnNewRadioButton.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(this.rdbtnNewRadioButton);
+
+		this.rdbtnTemporary = new JRadioButton("Temporary");
+		this.buttonGroup.add(this.rdbtnTemporary);
+		this.rdbtnTemporary.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(this.rdbtnTemporary);
+
+		this.txtEnterLicensePlate = new JTextField();
+		this.txtEnterLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
+		this.txtEnterLicensePlate.setText("If temporary, enter License Plate");
+		centerPanel.add(this.txtEnterLicensePlate);
+		this.txtEnterLicensePlate.setColumns(10);
+
 		btnEnter = new JButton("Enter");
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				email = txtEnterEmail.getText();
-				address = txtEnterParkingAddress.getText();
-				date = txtEnterDate.getText();
-				startTime = txtEnterTime.getText();
-				endTime = txtEnterEndTime.getText();
-				if (rdbtnTemporary.isSelected()) {
-					licensePlate = txtEnterLicensePlate.getText();
+				ReserveASpot.this.email = ReserveASpot.this.txtEnterEmail.getText();
+				ReserveASpot.this.address = ReserveASpot.this.txtEnterParkingAddress.getText();
+				ReserveASpot.this.date = ReserveASpot.this.txtEnterDate.getText();
+				ReserveASpot.this.startTime = ReserveASpot.this.txtEnterTime.getText();
+				ReserveASpot.this.endTime = ReserveASpot.this.txtEnterEndTime.getText();
+				if (ReserveASpot.this.rdbtnTemporary.isSelected()) {
+					ReserveASpot.this.licensePlate = ReserveASpot.this.txtEnterLicensePlate.getText();
 				}
-				else if (rdbtnNewRadioButton.isSelected()) {
-					licensePlate = "";
+				else if (ReserveASpot.this.rdbtnNewRadioButton.isSelected()) {
+					ReserveASpot.this.licensePlate = "";
 				}
 				else {
 					LPError lperror = new LPError();
 				}
-				if (address.equals("Enter Parking Address") || date.equals("Enter Date in MM/DD/YY") || startTime.equals("Enter Start Time in HH:MM") || endTime.equals("Enter End Time in HH:MM") || licensePlate.equals("If temporary, enter License Plate")) {
+				if (ReserveASpot.this.address.equals("Enter Parking Address") || ReserveASpot.this.date.equals("Enter Date in MM/DD/YY") || ReserveASpot.this.startTime.equals("Enter Start Time in HH:MM") || ReserveASpot.this.endTime.equals("Enter End Time in HH:MM") || ReserveASpot.this.licensePlate.equals("If temporary, enter License Plate")) {
 					NullError nerror = new NullError();
 				}
-				else if (address.equals("") || date.equals("") || startTime.equals("") || licensePlate.equals("")) {
+				else if (ReserveASpot.this.address.equals("") || ReserveASpot.this.date.equals("") || ReserveASpot.this.startTime.equals("") || ReserveASpot.this.licensePlate.equals("")) {
 					NullError nerror = new NullError();
 				}
 				else {
 					try {
-						pid = UIController.getParkingLot(address);
+						String pattern = "MM/dd/yyyy kk:mm";
+						SimpleDateFormat format = new SimpleDateFormat(pattern);
+						Date startDate = format.parse(ReserveASpot.this.date + " " + ReserveASpot.this.startTime);
+						Date endDate = format.parse(ReserveASpot.this.date + " " + ReserveASpot.this.endTime);
 						//reservation = new Reservation(address, email, licensePlate, 10, startTime, endTime);
+						Reservation newReservation = new Reservation(ReserveASpot.this.address, ReserveASpot.this.email, ReserveASpot.this.licensePlate, 10, startDate, endDate);
+						UIController.addReservation(newReservation);
+					} catch (ParseException pe) {
+
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					RAS_CC rasCC = new RAS_CC();
-					frame.setVisible(false);
 				}
+				RAS_CC rasCC = new RAS_CC();
+				ReserveASpot.this.frame.setVisible(false);
 			}
+
 		});
 		// turn on frame
-		frame.setVisible(true);
+		this.frame.setVisible(true);
 	}
 	public void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					ReserveASpot window = new ReserveASpot();
@@ -304,7 +321,7 @@ public class ReserveASpot {
 					e.printStackTrace();
 				}
 			}
-	});
+		});
 	}
 
 }
