@@ -78,6 +78,7 @@ class LogIn {
 		btnParkingRUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI gui = new GUI();
+				frame.setVisible(false);
 			}
 		});
 		
@@ -106,7 +107,6 @@ class LogIn {
 		
 		txtEmail = new JTextField(50);
 		txtEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEmail.setText("Enter Email");
 		centerPanel.add(txtEmail);
 		txtEmail.setColumns(10);
 		

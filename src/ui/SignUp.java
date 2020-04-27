@@ -19,6 +19,7 @@ import user.Customer;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 class SignUp {
 	
@@ -45,7 +46,6 @@ class SignUp {
 	private static JLabel lblEmail;
 	private static JButton btnEnter;
 	private static JTextField txtEmail;
-	private static JTextField txtEnterPassword;
 	private static String email;
 	private static String password;
 	private static String fName;
@@ -62,6 +62,7 @@ class SignUp {
 	
 	private static JLabel lblDateOfBirth;
 	private static JTextField txtDateOfBirth;
+	private static JPasswordField passwordField;
 	
 	public static void initialize() {
 		frame = new JFrame("Parking R Us");
@@ -90,6 +91,7 @@ class SignUp {
 		btnParkingRUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI gui = new GUI();
+				frame.setVisible(false);
 			}
 		});
 		headerPanel.add(btnParkingRUs, "cell 0 0,alignx left,aligny top");
@@ -126,10 +128,8 @@ class SignUp {
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblPassword);
 		
-		txtEnterPassword = new JTextField(50);
-		txtEnterPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(txtEnterPassword);
-		txtEnterPassword.setColumns(10);
+		passwordField = new JPasswordField();
+		centerPanel.add(passwordField);
 		
 		lblFirstName = new JLabel("First Name:");
 		lblFirstName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -163,7 +163,7 @@ class SignUp {
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				email = txtEmail.getText();
-				password = txtEnterPassword.getText();
+				password = new String(passwordField.getText());
 				fName = txtFirstName.getText();
 				lName = txtLastName.getText();
 				dob = txtDateOfBirth.getText();
