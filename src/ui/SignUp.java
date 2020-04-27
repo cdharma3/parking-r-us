@@ -20,6 +20,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import java.awt.Color;
 
 class SignUp {
 	
@@ -74,6 +75,7 @@ class SignUp {
 
 		// Create panel for top
 		headerPanel = new JPanel();
+		headerPanel.setBackground(new Color(60, 179, 113));
 
 		// Create panel for center
 		centerPanel = new JPanel();
