@@ -1,5 +1,11 @@
 # Eclipse Core
 .project
+<<<<<<< HEAD
+=======
+
+# JDT-specific
+.classpath
+>>>>>>> database
 /bin/
 
 # JDT-specific

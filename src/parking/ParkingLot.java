@@ -1,33 +1,72 @@
 package parking;
 
-import java.util.ArrayList;
-
 public class ParkingLot {
-	private Double timeStamp;
-	private ArrayList openSpots;
-	private ArrayList reservedSpots;
-	private ArrayList memberSpots;
+	private String address;
+	private int openSpots;
+	private int reservedSpots;
+	private int memberSpots;
 
-	public ParkingLot(int parkingLotID) {
-		/*
-		 * Pull parking lot information from database then
-		 * instantiate parking lot object with said information
-		 * Also pull timestamp from current time to maintain parkinglot 
-		 * accuracy
-		 */
+	// default constructor
+	public ParkingLot() {
+
 	}
 
-	public void freeSpot(int spotID) {
-		/*
-		 * remove spot from reservedSpots list and add to openSpots list
-		 * or add to memberSpots list of memberspot
-		 */
+	public ParkingLot(String address, int openSpots, int reservedSpots, int memberSpots) {
+		this.address = address;
+		this.reservedSpots = reservedSpots;
+		this.openSpots = openSpots;
+		this.memberSpots = memberSpots;
 	}
 
-	public void scheduleTime(int reservationID) {
-		/*
-		 * add reservation to time slots and move open spots
-		 * to reserved spots for time stamp
-		 */
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getOpenSpots() {
+		return this.openSpots;
+	}
+
+	public void setOpenSpots(int openSpots) {
+		this.openSpots = openSpots;
+	}
+
+	public int getReservedSpots() {
+		return this.reservedSpots;
+	}
+
+	public void setReservedSpots(int reservedSpots) {
+		this.reservedSpots = reservedSpots;
+	}
+
+	public int getMemberSpots() {
+		return this.memberSpots;
+	}
+
+	public void setMemberSpots(int memberSpots) {
+		this.memberSpots = memberSpots;
+	}
+
+	public void reserveSpot() {
+		this.openSpots--;
+		this.reservedSpots++;
+	}
+
+	public void openSpot() {
+		this.openSpots++;
+		this.reservedSpots--;
+	}
+
+	public void reserveMemberSpot() {
+		this.memberSpots--;
+		this.reservedSpots++;
+	}
+
+	public void openMemberSpot() {
+		this.memberSpots++;
+		this.reservedSpots--;
 	}
 }
