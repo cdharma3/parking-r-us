@@ -24,6 +24,7 @@ import javax.swing.border.CompoundBorder;
 
 import net.miginfocom.swing.MigLayout;
 import parking.Reservation;
+import java.awt.Color;
 
 public class ReserveASpot {
 
@@ -110,6 +111,7 @@ public class ReserveASpot {
 
 		// Create panel for top
 		headerPanel = new JPanel();
+		headerPanel.setBackground(new Color(60, 179, 113));
 
 		// Create panel for center
 		centerPanel = new JPanel();

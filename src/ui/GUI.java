@@ -14,6 +14,7 @@ import java.awt.EventQueue;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
+import java.awt.Color;
 
 class GUI {
 	
@@ -52,6 +53,7 @@ class GUI {
 
 		// Create panel for top
 		headerPanel = new JPanel();
+		headerPanel.setBackground(new Color(60, 179, 113));
 
 		// Create panel for center
 		centerPanel = new JPanel();
