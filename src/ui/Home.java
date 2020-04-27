@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import javax.swing.border.CompoundBorder;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.ButtonGroup;
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class Home {
 
@@ -44,6 +46,7 @@ public class Home {
 	private Boolean viewStatistics;
 	private Boolean isMember;
 	private String reservations;
+	private static String email;
 	/**
 	 * Launch the application.
 	 */
@@ -51,7 +54,7 @@ public class Home {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home window = new Home();
+					Home window = new Home(email);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,8 +66,9 @@ public class Home {
 	/**
 	 * Create the application.
 	 */
-	public Home() {
+	public Home(String user) {
 		initialize();
+		email = user;
 	}
 
 	/**
@@ -156,7 +160,16 @@ public class Home {
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblWelcome);
 		
-		reservations = "";
+		try {
+			ArrayList reserves = UIController.showReservation(email);
+			for (int i = 0; i < reserves.size(); i++) {
+				reservations += reserves.get(i) + "\n";
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		lblNewLabel_1 = new JLabel("Your reservations are: " + reservations);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		centerPanel.add(lblNewLabel_1);
@@ -174,7 +187,7 @@ public class Home {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home window = new Home();
+					Home window = new Home(email);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
