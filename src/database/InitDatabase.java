@@ -53,6 +53,31 @@ public class InitDatabase {
 
 			st.executeUpdate(vehicleTable);
 			System.out.println("Vehicle table created");
+
+			tables = pdbmd.getTables(null, null, "reservation", null);
+			if(tables.next()) {
+				st.executeUpdate("DROP TABLE reservation CASCADE;");
+				System.out.println("Reservation table dropped");
+			}
+
+			String reservationTable =
+					"CREATE TABLE reservation "
+							+ "(R_ID varChar(50) NOT NULL, "
+							+ "P_ID varChar(50) NOT NULL, "
+							+ "licensePlate varChar(50), "
+							+ "hourlyRate NUMERIC(15, 2), "
+							+ "startDate DATE, "
+							+ "startTime TIME, "
+							+ "endDate DATE, "
+							+ "endTime TIME, "
+							+ "numHours NUMERIC(15, 2), "
+							+ "totalSum varChar(50), "
+							+ "PRIMARY KEY (R_ID), "
+							+ "FOREIGN KEY (P_ID) REFERENCES parkinglot(P_ID), "
+							+ "FOREIGN KEY (licensePlate) REFERENCES vehicle(licensePlate));";
+
+			st.executeUpdate(reservationTable);
+			System.out.println("Reservation table created");
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}

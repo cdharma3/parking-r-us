@@ -18,9 +18,9 @@ public class Customer {
 		this.dateOfBirth = dateOfBirth;
 		this.isMember = isMember;
 	}
-	
+
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public void setUsername(String username) {
@@ -28,7 +28,7 @@ public class Customer {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -36,7 +36,7 @@ public class Customer {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -44,7 +44,7 @@ public class Customer {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -52,7 +52,7 @@ public class Customer {
 	}
 
 	public Date getDateOfBirth() {
-		return dateOfBirth;
+		return this.dateOfBirth;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
@@ -60,10 +60,16 @@ public class Customer {
 	}
 
 	public Boolean getIsMember() {
-		return isMember;
+		return this.isMember;
 	}
 
 	public void setIsMember(Boolean isMember) {
 		this.isMember = isMember;
+	}
+
+	@Override
+	public String toString() {
+		String str = "Customer " + this.firstName + " " + this.lastName;
+		return str;
 	}
 }

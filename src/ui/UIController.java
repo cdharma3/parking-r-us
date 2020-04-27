@@ -1,6 +1,8 @@
 package ui;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -29,8 +31,12 @@ public class UIController {
 
 	/**
 	 * Hashes password with given plaintext password and given salt
+	 * @param password plaintext password to be hashed and salted
+	 * @param salt randomly generated 32bit salt length to generate unique hashes
+	 * @return returns hashed password as encoded base64 string
+	 * @throws IllegalArgumentException when plaintext password is null or empty
 	 */
-	private static String hash(String password, byte[] salt) throws Exception {
+	private static String hash(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		if (password == null || password.length() == 0) {
 			throw new IllegalArgumentException("Empty passwords are not supported.");
 		}
@@ -41,19 +47,22 @@ public class UIController {
 	}
 
 	/**
-	 * Helper function to hash and salt password with PBKDF2
-	 * returns salt and hashed password separated by $
-	 * @throws Exception
+	 * Helper function to bundle salt and hashed password together to store in database
+	 * @param password plaintext password to be hashed and salted
+	 * @returns salt and hashed password as encoded base64 string separated by $
 	 */
-	public static String getSaltedHash(String password) throws Exception {
+	public static String getSaltedHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException{
 		byte[] salt = SecureRandom.getInstance("SHA1PRNG").generateSeed(saltLen);
 		// store the salt with the password
 		return Base64.getEncoder().encodeToString(salt) + "$" + hash(password, salt);
 	}
 
-	/** Checks whether given plaintext password corresponds
-    to a stored salted hash of the password. */
-	public static boolean check(String password, String stored) throws Exception{
+	/** Checks whether given plaintext password corresponds to a stored salted hash of the password.
+	 * @param password plaintext password to be checked against stored hash
+	 * @param stored salted hash to be checked again in this format 'salt$hash'
+	 * @returns returns true if plaintext password equals the stored password
+	 */
+	public static boolean check(String password, String stored) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		String[] saltAndHash = stored.split("\\$");
 		if (saltAndHash.length != 2) {
 			throw new IllegalStateException(
@@ -172,20 +181,14 @@ public class UIController {
 	}
 
 	/** Called when login submit button is pushed
+	 * Searches for username in customer database, then checks if passwords match
 	 * @throws Exception
 	 */
-	/* Searches for username in customer database, then checks if passwords match
-	 * 		if match then
-	 * 			allow entry to site
-	 * 			return current userID
-	 * 		if not match then
-	 * 			refuse entry with an error message, then return
-	 *
-	 * when entry is allowed
-	 * 		display user information in box, set as default home screen
-	 * 		display active reservations and times
-	 * 		display button to edit reservation
-	 * 		display button to navigate to creating new reservation
+	/* 	if match then
+	 * 		allow entry to site
+	 * 		return current userID
+	 * 	if not match then
+	 * 		refuse entry with an error message, then return
 	 */
 	public static boolean login(String userName, String password) throws Exception {
 		parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
@@ -217,10 +220,10 @@ public class UIController {
 
 	}
 
-
+	/** retrieves reservation from database using unique id
+	 * then passes information to UI
+	 */
 	public static Reservation showReservation(int reservationID) {
-		/* retrieves reservation from database using unique id, then passes information to UI
-		 */
 		return new Reservation(); // placeholder
 	}
 
@@ -228,11 +231,16 @@ public class UIController {
 		String pattern = "MM/dd/yyyy";
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
 		Customer bill = new Customer("bWatts", "hello123", "Bill", "Watts", format.parse("12/12/1970"), false);
+		Customer bbongus = new Customer ("bBongus", "purple-goats-midnight-dancing", "Bingus", "Bongus", format.parse("01/01/2001"), false);
+
 		UIController.deleteCustomer("bWatts");
+		UIController.deleteCustomer("bBongus");
+
 		UIController.addCustomer(bill);
+		UIController.addCustomer(bbongus);
 		UIController.addVehicle("bWatts", "A123456", "Sorento", "KIA");
 		UIController.deleteVehicle("bWatts", "A123456");
 		UIController.addMembership("bWatts", false);
-		System.out.println("Login attempt for bWatts: " + Boolean.toString(login("bWatts", "hello123")));
+		System.out.println("Login attempt for bWatts: " + Boolean.toString(login("bBongus", "purple-goats-midnight-dancing")));
 	}
 }
