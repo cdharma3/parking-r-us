@@ -129,6 +129,7 @@ class SignUp {
 		centerPanel.add(lblPassword);
 		
 		passwordField = new JPasswordField();
+		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(passwordField);
 		
 		lblFirstName = new JLabel("First Name:");

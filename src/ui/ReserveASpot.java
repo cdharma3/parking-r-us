@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +19,10 @@ import javax.swing.border.CompoundBorder;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+
+import java.util.Date;
+import java.util.UUID;
+import parking.Reservation;
 
 public class ReserveASpot {
 
@@ -59,6 +64,14 @@ public class ReserveASpot {
 	private String endTime;
 	private String licensePlate;
 	private JTextField txtEnterEndTime;
+	static UIController uic = new UIController();
+	private UUID pid;
+	private JLabel lblEmail;
+	private JTextField txtEnterEmail;
+	private String email;
+	private Reservation reservation;
+	private Date start;
+	private Date end;
 	/**
 	 * Launch the application.
 	 */
@@ -85,7 +98,7 @@ public class ReserveASpot {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(){
 		frame = new JFrame("Parking R Us");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationByPlatform(true);
@@ -175,6 +188,16 @@ public class ReserveASpot {
 		lblReserveASpot.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblReserveASpot);
 		
+		lblEmail = new JLabel("Email");
+		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblEmail);
+		
+		txtEnterEmail = new JTextField();
+		txtEnterEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEnterEmail.setText("Enter Email");
+		centerPanel.add(txtEnterEmail);
+		txtEnterEmail.setColumns(10);
+		
 		lblAddress = new JLabel("Address");
 		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblAddress);
@@ -235,6 +258,7 @@ public class ReserveASpot {
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				email = txtEnterEmail.getText();
 				address = txtEnterParkingAddress.getText();
 				date = txtEnterDate.getText();
 				startTime = txtEnterTime.getText();
@@ -255,6 +279,13 @@ public class ReserveASpot {
 					NullError nerror = new NullError();
 				}
 				else {
+					try {
+						pid = UIController.getParkingLot(address);
+						//reservation = new Reservation(address, email, licensePlate, 10, startTime, endTime);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					RAS_CC rasCC = new RAS_CC();
 					frame.setVisible(false);
 				}
