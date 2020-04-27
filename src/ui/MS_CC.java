@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -53,6 +54,11 @@ public class MS_CC {
 	private String expiration;
 	private String security;
 	private Boolean isValid;
+	private JLabel lblEmail;
+	private JTextField txtEmail;
+	private static String email;
+	
+	static UIController uic = new UIController();
 	/**
 	 * Launch the application.
 	 */
@@ -172,6 +178,16 @@ public class MS_CC {
 		lblPricespriceVaries = new JLabel("Prices: $10/month");
 		lblPricespriceVaries.setHorizontalAlignment(SwingConstants.CENTER);
 		centerPanel.add(lblPricespriceVaries);
+		
+		lblEmail = new JLabel("Email");
+		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblEmail);
+		
+		txtEmail = new JTextField();
+		txtEmail.setText("Enter Email");
+		txtEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(txtEmail);
+		txtEmail.setColumns(10);
 
 		lblCreditCardNumber = new JLabel("Credit Card Number");
 		lblCreditCardNumber.setHorizontalAlignment(SwingConstants.CENTER);
@@ -222,9 +238,17 @@ public class MS_CC {
 					NullError nerror = new NullError();
 				}
 				if (isValid) {
+					email = txtEmail.getText();
+					try {
+						uic.addMembership(email,true);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					RAS_Congrats rasCongrats = new RAS_Congrats();
 					frame.setVisible(false);
 				}
+				
 			}
 		});
 		// turn on frame
