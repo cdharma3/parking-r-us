@@ -14,6 +14,7 @@ public class InitDatabase {
 			Connection parkingDatabase = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parking-db", "postgres", "123456");
 			System.out.println("Connection established...");
 			Statement st = parkingDatabase.createStatement();
+
 			st.execute("DROP EXTENSION \"uuid-ossp\" CASCADE;");
 			st.execute("CREATE EXTENSION \"uuid-ossp\";");
 
@@ -89,10 +90,8 @@ public class InitDatabase {
 							+ "C_ID varChar(50) NOT NULL, "
 							+ "licensePlate varChar(50), "
 							+ "hourlyRate NUMERIC(15, 2), "
-							+ "startDate DATE, "
-							+ "startTime TIME, "
-							+ "endDate DATE, "
-							+ "endTime TIME, "
+							+ "startTimestamp TIMESTAMP, "
+							+ "endTimestamp TIMESTAMP, "
 							+ "numHours NUMERIC(15, 2), "
 							+ "totalSum varChar(50), "
 							+ "FOREIGN KEY (P_ID) REFERENCES parkinglot(P_ID), "
