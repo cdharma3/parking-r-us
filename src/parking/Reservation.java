@@ -1,6 +1,5 @@
 package parking;
 
-import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -134,7 +133,7 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy kk:mm");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy kk:mm");
 		String str =
 				"\nReservation at lot located at " + this.parkingAddress +
 				"\nTime slot: " + dateFormat.format(this.startTime) + " - " + dateFormat.format(this.endTime) +
