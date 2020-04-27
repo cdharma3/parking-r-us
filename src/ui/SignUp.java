@@ -167,7 +167,7 @@ class SignUp {
 				fName = txtFirstName.getText();
 				lName = txtLastName.getText();
 				dob = txtDateOfBirth.getText();
-				if (email.length() < 1 || password.length() < 1|| fName.length() < 1|| lName.length() < 1) {
+				if (email.length() < 1 || password.length() < 1|| fName.length() < 1 || lName.length() < 1) {
 					NullError err = new NullError();
 				}
 				else if (email.length() > 50 || password.length() > 50 || fName.length() > 50 || lName.length() > 50) {
