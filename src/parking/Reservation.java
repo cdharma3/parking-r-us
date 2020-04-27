@@ -6,6 +6,7 @@ import java.util.Locale;
 
 public class Reservation {
 	private String parkingAddress; // address tied to parking lot, use to calculate p_id
+	private String username; // username of user tied to reservation
 	private String licensePlate; // license plate to be assigned to space
 	private float hourlyRate; // parking lot hourly rate
 	private Date startTime; // start time for reservation
@@ -15,6 +16,7 @@ public class Reservation {
 
 	public Reservation() {
 		this.parkingAddress = "";
+		this.username = "";
 		this.licensePlate = "";
 		this.hourlyRate = 0;
 		this.startTime = null;
@@ -23,8 +25,9 @@ public class Reservation {
 		this.totalSum = "";
 	}
 
-	public Reservation(String parkingAddress, String licensePlate, float hourlyRate, Date startTime, Date endTime) {
+	public Reservation(String parkingAddress, String username, String licensePlate, float hourlyRate, Date startTime, Date endTime) {
 		this.parkingAddress = parkingAddress;
+		this.username = username;
 		this.licensePlate = licensePlate;
 		this.hourlyRate = hourlyRate;
 		this.startTime = startTime;
@@ -38,6 +41,14 @@ public class Reservation {
 
 	public void setParkingAddress(String parkingAddress) {
 		this.parkingAddress = parkingAddress;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getLicensePlate() {
@@ -94,7 +105,6 @@ public class Reservation {
 		NumberFormat money = NumberFormat.getCurrencyInstance(Locale.US);
 		long difference = this.endTime.getTime() - this.startTime.getTime();
 		long diffHours = difference / (60 * 60 * 1000);
-		System.out.println(diffHours);
 		this.numHours = diffHours;
 		this.totalSum = money.format(this.numHours * this.hourlyRate);
 	}
