@@ -211,8 +211,16 @@ public class RAS_CC {
 				ccn = txtEnterCreditCard.getText();
 				expiration = txtEnterMmyy.getText();
 				security = txtEnterCvncvv.getText();
-				RAS_Congrats rasCongrats = new RAS_Congrats();
-				frame.setVisible(false);
+				if (ccn.equals("Enter Credit Card #") || expiration.equals("Enter MM/YY") || security.equals("Enter CVN/CVV")) {
+					NullError nerror = new NullError();
+				}
+				else if (ccn.equals("") || expiration.equals("") || security.equals("")) {
+					NullError nerror = new NullError();
+				}
+				else {
+					RAS_Congrats rasCongrats = new RAS_Congrats();
+					frame.setVisible(false);
+				}
 			}
 		});
 		// turn on frame

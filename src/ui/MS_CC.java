@@ -209,8 +209,16 @@ public class MS_CC {
 				ccn = txtEnterCreditCard.getText();
 				expiration = txtEnterMmyy.getText();
 				security = txtEnterCvncvv.getText();
-				MS_Congrats rasCongrats = new MS_Congrats();
-				frame.setVisible(false);
+				if (ccn.equals("Enter Credit Card #") || expiration.equals("Enter MM/YY") || security.equals("Enter CVN/CVV")) {
+					NullError nerror = new NullError();
+				}
+				else if (ccn.equals("") || expiration.equals("") || security.equals("")) {
+					NullError nerror = new NullError();
+				}
+				else {
+					MS_Congrats msCongrats = new MS_Congrats();
+					frame.setVisible(false);
+				}
 			}
 		});
 		// turn on frame

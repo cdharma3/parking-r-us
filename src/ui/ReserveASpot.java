@@ -58,6 +58,7 @@ public class ReserveASpot {
 	private String startTime;
 	private String endTime;
 	private String licensePlate;
+	private JTextField txtEnterEndTime;
 	/**
 	 * Launch the application.
 	 */
@@ -200,9 +201,15 @@ public class ReserveASpot {
 		
 		txtEnterTime = new JTextField();
 		txtEnterTime.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEnterTime.setText("Enter Time in HH:MM");
+		txtEnterTime.setText("Enter Start Time in HH:MM");
 		centerPanel.add(txtEnterTime);
 		txtEnterTime.setColumns(10);
+		
+		txtEnterEndTime = new JTextField();
+		txtEnterEndTime.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEnterEndTime.setText("Enter End Time in HH:MM");
+		centerPanel.add(txtEnterEndTime);
+		txtEnterEndTime.setColumns(10);
 		
 		lblLicensePlate = new JLabel("License Plate");
 		lblLicensePlate.setHorizontalAlignment(SwingConstants.CENTER);
@@ -231,6 +238,7 @@ public class ReserveASpot {
 				address = txtEnterParkingAddress.getText();
 				date = txtEnterDate.getText();
 				startTime = txtEnterTime.getText();
+				endTime = txtEnterEndTime.getText();
 				if (rdbtnTemporary.isSelected()) {
 					licensePlate = txtEnterLicensePlate.getText();
 				}
@@ -240,8 +248,16 @@ public class ReserveASpot {
 				else {
 					LPError lperror = new LPError();
 				}
-				RAS_CC rasCC = new RAS_CC();
-				frame.setVisible(false);
+				if (address.equals("Enter Parking Address") || date.equals("Enter Date in MM/DD/YY") || startTime.equals("Enter Start Time in HH:MM") || endTime.equals("Enter End Time in HH:MM") || licensePlate.equals("If temporary, enter License Plate")) {
+					NullError nerror = new NullError();
+				}
+				else if (address.equals("") || date.equals("") || startTime.equals("") || licensePlate.equals("")) {
+					NullError nerror = new NullError();
+				}
+				else {
+					RAS_CC rasCC = new RAS_CC();
+					frame.setVisible(false);
+				}
 			}
 		});
 		// turn on frame
