@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +14,8 @@ import javax.swing.SwingConstants;
 
 import java.awt.EventQueue;
 import net.miginfocom.swing.MigLayout;
+import user.Customer;
+
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
@@ -44,7 +48,21 @@ class SignUp {
 	private static JTextField txtEnterPassword;
 	private static String email;
 	private static String password;
+	private static String fName;
+	private static String lName;
+	private static String dob;
+	private static JLabel lblFirstName;
+	private static JLabel lblLastName;
+	private static JTextField txtFirstName;
+	private static JTextField txtLastName;
 
+	static UIController uic = new UIController();
+	static Customer cust;
+	static Date dobD;
+	
+	private static JLabel lblDateOfBirth;
+	private static JTextField txtDateOfBirth;
+	
 	public static void initialize() {
 		frame = new JFrame("Parking R Us");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -113,19 +131,64 @@ class SignUp {
 		centerPanel.add(txtEnterPassword);
 		txtEnterPassword.setColumns(10);
 		
+		lblFirstName = new JLabel("First Name:");
+		lblFirstName.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblFirstName);
+		
+		txtFirstName = new JTextField();
+		txtFirstName.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(txtFirstName);
+		txtFirstName.setColumns(10);
+		
+		lblLastName = new JLabel("Last Name:");
+		lblLastName.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblLastName);
+		
+		txtLastName = new JTextField();
+		txtLastName.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(txtLastName);
+		txtLastName.setColumns(10);
+		
+		lblDateOfBirth = new JLabel("Date of Birth (YY-MM-DD, include \"-\"):");
+		lblDateOfBirth.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(lblDateOfBirth);
+		
+		txtDateOfBirth = new JTextField();
+		txtDateOfBirth.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(txtDateOfBirth);
+		txtDateOfBirth.setColumns(10);
+		
 		btnEnter = new JButton("Enter");
 		centerPanel.add(btnEnter);
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				email = txtEmail.getText();
 				password = txtEnterPassword.getText();
-				if (email.length() < 1 || password.length() < 1) {
+				fName = txtFirstName.getText();
+				lName = txtLastName.getText();
+				dob = txtDateOfBirth.getText();
+				if (email.length() < 1 || password.length() < 1|| fName.length() < 1|| lName.length() < 1) {
 					NullError err = new NullError();
 				}
-				else if (email.length() > 50 || password.length() > 50) {
+				else if (email.length() > 50 || password.length() > 50 || fName.length() > 50 || lName.length() > 50) {
+					LengthError err = new LengthError();
+				}
+				else if (dob.length() != 8) {
 					LengthError err = new LengthError();
 				}
 				else {
+					String[] dobArr = dob.split("-");
+					int Ydob = Integer.valueOf(dobArr[0]);
+					int Mdob = Integer.valueOf(dobArr[1]);
+					int Ddob = Integer.valueOf(dobArr[2]);
+					dobD = new Date(Ydob, Mdob, Ddob);
+					cust = new Customer(email,password,fName,lName,dobD,false);
+					try {
+						uic.addCustomer(cust);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					Home home = new Home();
 					frame.setVisible(false);
 				}

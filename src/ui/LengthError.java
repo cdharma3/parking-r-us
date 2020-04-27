@@ -42,7 +42,7 @@ public class LengthError {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JLabel lblPleaseEnterA = new JLabel("<html>Please enter a username/password that is less than 50 characters.</html");
+		JLabel lblPleaseEnterA = new JLabel("<html>Please enter a username/password that is less than 50 characters. Make sure DOB includes '-'</html");
 		lblPleaseEnterA.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(lblPleaseEnterA, BorderLayout.CENTER);
 		frame.setVisible(true);
